@@ -1,0 +1,29 @@
+ci
+
+  add makefile
+    build
+      trim build: go build -ldflags="-s -w"
+    clean
+    lint
+    run
+    test
+      integration
+      unit
+    vendor
+      go get -u
+      go mod vendor
+
+  add workflow
+    -||-
+
+ecs
+
+  implement ecs
+
+research
+
+  https://austinmorlan.com/posts/entity_component_system/
+  https://bfnightly.bracketproductions.com/chapter_2.html
+  https://cdn.1j1ju.com/medias/62/18/30-star-wars-the-deckbuilding-game-rulebook.pdf
+  https://reddit.com/r/howdidtheycodeit/comments/voyyg3/how_are_complex_card_games_like_magic_hearthstone/
+  https://threedots.tech/post/making-games-in-go/
