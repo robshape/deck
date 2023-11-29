@@ -1,16 +1,14 @@
-ci
+add CI workflow
+  golangci-lint
 
-  add workflow
-    golangci-lint
-
-ecs
-
-  implement ecs
+implement ecs
+add WASM boilerplate
+represent game parts/components
 
 research
-
   https://austinmorlan.com/posts/entity_component_system/
   https://bfnightly.bracketproductions.com/chapter_2.html
+  https://cdn.1j1ju.com/medias/27/e1/a6-star-realms-rulebook.pdf
   https://cdn.1j1ju.com/medias/62/18/30-star-wars-the-deckbuilding-game-rulebook.pdf
   https://medium.com/@tglaiel/how-to-make-your-game-run-at-60fps-24c61210fe75/
   https://reddit.com/r/howdidtheycodeit/comments/voyyg3/how_are_complex_card_games_like_magic_hearthstone/
