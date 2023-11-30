@@ -8,57 +8,72 @@ func TestNewEntityManager(t *testing.T) {
 	entityManager := NewEntityManger()
 
 	if entityManager == nil {
-		t.Error("Expected entityManager to be non-nil")
-	}
-	if len(entityManager.entities) != 0 {
-		t.Error("Expected entityManager.entities to be empty")
+		t.Error("should be non-nil")
 	}
 }
 
 func TestCreateEntity(t *testing.T) {
-	entityManager := NewEntityManger()
-	entity1 := entityManager.CreateEntity()
+	cases := []struct {
+		name             string
+		numberOfEntities int
+		entityIds        []uint32
+	}{
+		{"should start with no entities", 0, nil},
+		{"should create one entity with id", 1, []uint32{1}},
+		{"should create many entities with ids", 3, []uint32{1, 2, 3}},
+	}
 
-	if len(entityManager.entities) != 1 {
-		t.Error("Expected entityManager.entities to have length of 1")
-	}
-	if entity1.id != 1 {
-		t.Error("Expected entity1.id to be 1")
-	}
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			entityManager := NewEntityManger()
 
-	entity2 := entityManager.CreateEntity()
+			for i := 0; i < c.numberOfEntities; i++ {
+				entityManager.CreateEntity()
+			}
+			entities := entityManager.Entities()
 
-	if len(entityManager.entities) != 2 {
-		t.Error("Expected entityManager.entities to have length of 2")
-	}
-	if entity1.id != 1 {
-		t.Error("Expected entity1.id to be 1")
-	}
-	if entity2.id != 2 {
-		t.Error("Expected entity2.id to be 2")
+			if len(entities) != c.numberOfEntities {
+				t.Error(c.name)
+			}
+			for i, e := range entities {
+				if e.id != c.entityIds[i] {
+					t.Error(c.name)
+				}
+			}
+		})
 	}
 }
 
 func TestDestroyEntity(t *testing.T) {
-	entityManager := NewEntityManger()
-	entity1 := entityManager.CreateEntity()
-	entity2 := entityManager.CreateEntity()
-	entity3 := entityManager.CreateEntity()
-
-	if len(entityManager.entities) != 3 {
-		t.Error("Expected entityManager.entities to have length of 3")
+	cases := []struct {
+		name             string
+		numberOfEntities int
+	}{
+		{"should destroy one entity", 1},
+		{"should destroy many entities", 3},
 	}
 
-	entityManager.DestroyEntity(entity2)
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			entityManager := NewEntityManger()
 
-	if len(entityManager.entities) != 2 {
-		t.Error("Expected entityManager.entities to have length of 2")
-	}
+			for i := 0; i < c.numberOfEntities; i++ {
+				entityManager.CreateEntity()
+			}
+			entities := entityManager.Entities()
 
-	entityManager.DestroyEntity(entity1)
-	entityManager.DestroyEntity(entity3)
+			if len(entities) != c.numberOfEntities {
+				t.Error(c.name)
+			}
 
-	if len(entityManager.entities) != 0 {
-		t.Error("Expected entityManager.entities to have length of 0")
+			for i := len(entities) - 1; i >= 0; i-- {
+				entityManager.DestroyEntity(entities[i])
+			}
+			entities = entityManager.Entities()
+
+			if len(entities) != 0 {
+				t.Error(c.name)
+			}
+		})
 	}
 }

@@ -26,8 +26,14 @@ func (p *entityManager) CreateEntity() *entity {
 func (p *entityManager) DestroyEntity(entity *entity) {
 	for i, e := range p.entities {
 		if e.id == entity.id {
-			p.entities = append(p.entities[:i], p.entities[i+1:]...)
-			return
+			p.entities[i] = p.entities[len(p.entities)-1]
+			p.entities[len(p.entities)-1] = nil
+			p.entities = p.entities[:len(p.entities)-1]
+			break
 		}
 	}
+}
+
+func (p *entityManager) Entities() []*entity {
+	return p.entities
 }
