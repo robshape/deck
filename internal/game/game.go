@@ -1,18 +1,22 @@
 package game
 
 import (
-	"time"
+	"fmt"
 )
 
-func Loop(tickRate time.Duration, onTick func(float64)) {
-	tick := time.Tick(time.Second / tickRate)
-	start := time.Now().UnixNano()
+func input() {}
 
-	for range tick {
-		now := time.Now().UnixNano()
-		delta := float64(now-start) / float64(time.Second)
-		start = now
+func render(delta float64) {
+	fmt.Println(delta)
+}
 
-		onTick(delta)
-	}
+func update() {}
+
+func Start() {
+	const TICK_RATE = 60 // Ticks per second
+	loop(TICK_RATE, func(delta float64) {
+		input()
+		update()
+		render(delta)
+	})
 }
