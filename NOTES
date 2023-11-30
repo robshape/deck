@@ -2,14 +2,23 @@ add CI workflow
   golangci-lint
 
 implement ecs
-add WASM boilerplate
-represent game parts/components
-
-research
   https://austinmorlan.com/posts/entity_component_system/
   https://bfnightly.bracketproductions.com/chapter_2.html
-  https://cdn.1j1ju.com/medias/27/e1/a6-star-realms-rulebook.pdf
-  https://cdn.1j1ju.com/medias/62/18/30-star-wars-the-deckbuilding-game-rulebook.pdf
+  https://docs.unity3d.com/Packages/com.unity.entities@1.2/manual/index.html
+  https://en.wikipedia.org/wiki/Entity_component_system/
+  https://github.com/SanderMertens/ecs-faq/
+
+  implement game parts as entities and components
+
+  implement rules as components and systems
+    https://cdn.1j1ju.com/medias/27/e1/a6-star-realms-rulebook.pdf
+    https://cdn.1j1ju.com/medias/62/18/30-star-wars-the-deckbuilding-game-rulebook.pdf
+
+add WASM boilerplate
+
+research
+  https://gameprogrammingpatterns.com/game-loop.html
+  https://journal.stuffwithstuff.com/2014/07/15/a-turn-based-game-loop/
   https://medium.com/@tglaiel/how-to-make-your-game-run-at-60fps-24c61210fe75/
   https://reddit.com/r/howdidtheycodeit/comments/voyyg3/how_are_complex_card_games_like_magic_hearthstone/
   https://threedots.tech/post/making-games-in-go/
