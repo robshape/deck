@@ -1,4 +1,4 @@
-.PHONY: audit build clean install run
+.PHONY: audit build clean install run test
 
 audit:
 	go mod verify
@@ -22,3 +22,6 @@ install:
 
 run: build
 	./bin/deck
+
+test:
+	go test -race -v ./...
