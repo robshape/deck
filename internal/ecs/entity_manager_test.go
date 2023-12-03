@@ -31,9 +31,10 @@ func TestCreateEntity(t *testing.T) {
 				entityManager.CreateEntity()
 			}
 			entities := entityManager.Entities()
+			entitiesCount := len(entities)
 
-			if len(entities) != c.in {
-				t.Errorf("got %d, want %d", len(entities), c.in)
+			if entitiesCount != c.in {
+				t.Errorf("got %d, want %d", entitiesCount, c.in)
 			}
 			for i, e := range entities {
 				if e.id != c.want[i] {
@@ -61,18 +62,20 @@ func TestDestroyEntity(t *testing.T) {
 				entityManager.CreateEntity()
 			}
 			entities := entityManager.Entities()
+			entitiesCount := len(entities)
 
-			if len(entities) != c.in {
-				t.Errorf("got %d, want %d", len(entities), c.in)
+			if entitiesCount != c.in {
+				t.Errorf("got %d, want %d", entitiesCount, c.in)
 			}
 
-			for i := len(entities) - 1; i >= 0; i-- {
+			for i := entitiesCount - 1; i >= 0; i-- {
 				entityManager.DestroyEntity(entities[i])
 			}
 			entities = entityManager.Entities()
+			entitiesCount = len(entities)
 
-			if len(entities) != 0 {
-				t.Errorf("got %d, want 0", len(entities))
+			if entitiesCount != 0 {
+				t.Errorf("got %d, want 0", entitiesCount)
 			}
 		})
 	}

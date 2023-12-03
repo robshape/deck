@@ -29,16 +29,18 @@ func TestAddComponent(t *testing.T) {
 			entityManager := NewEntityManager()
 			entity := entityManager.CreateEntity()
 
-			for _, componentTypeMask := range c.in {
-				entity.AddComponent(&mockComponent{mask: componentTypeMask})
+			for _, componentMask := range c.in {
+				entity.AddComponent(&mockComponent{mask: componentMask})
 			}
-			count := math.Round(math.Sqrt(float64(c.want)))
+			componentsCount := len(entity.Components())
+			componentsMask := entity.ComponentsMask()
+			wantCount := int(math.Round(math.Sqrt(float64(c.want)))) // Count bits set in mask
 
-			if len(entity.Components()) != int(count) {
-				t.Errorf("got %d, want %d", len(entity.Components()), int(count))
+			if componentsCount != wantCount {
+				t.Errorf("got %d, want %d", componentsCount, wantCount)
 			}
-			if entity.ComponentsMask() != c.want {
-				t.Errorf("got %d, want %d", entity.ComponentsMask(), c.want)
+			if componentsMask != c.want {
+				t.Errorf("got %d, want %d", componentsMask, c.want)
 			}
 		})
 	}
@@ -58,19 +60,27 @@ func TestRemoveComponent(t *testing.T) {
 			entityManager := NewEntityManager()
 			entity := entityManager.CreateEntity()
 
-			for _, componentTypeMask := range c.in {
-				entity.AddComponent(&mockComponent{mask: componentTypeMask})
+			for _, componentMask := range c.in {
+				entity.AddComponent(&mockComponent{mask: componentMask})
+			}
+			componentsCount := len(entity.Components())
+			inCount := len(c.in)
+
+			if componentsCount != inCount {
+				t.Errorf("got %d, want %d", componentsCount, inCount)
 			}
 
-			for _, componentTypeMask := range c.in {
-				entity.RemoveComponent(componentTypeMask)
+			for _, componentMask := range c.in {
+				entity.RemoveComponent(componentMask)
 			}
+			componentsCount = len(entity.Components())
+			componentsMask := entity.ComponentsMask()
 
-			if len(entity.Components()) != 0 {
-				t.Errorf("got %d, want 0", len(entity.Components()))
+			if componentsCount != 0 {
+				t.Errorf("got %d, want 0", componentsCount)
 			}
-			if entity.ComponentsMask() != 0 {
-				t.Errorf("got %d, want 0", entity.ComponentsMask())
+			if componentsMask != 0 {
+				t.Errorf("got %d, want 0", componentsMask)
 			}
 		})
 	}
