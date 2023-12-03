@@ -5,6 +5,12 @@ import (
 	"testing"
 )
 
+const (
+	COMPONENT_MOCK_1 = 1
+	COMPONENT_MOCK_2 = 2
+	COMPONENT_MOCK_3 = 4
+)
+
 type mockComponent struct {
 	mask ComponentMask
 }
@@ -19,9 +25,9 @@ func TestAddComponent(t *testing.T) {
 		in   []ComponentMask
 		want ComponentMask
 	}{
-		{"should add one component with mask", []ComponentMask{COMPONENT_DAMAGE_COUNTER}, COMPONENT_DAMAGE_COUNTER},
-		{"should add many components with mask", []ComponentMask{COMPONENT_DAMAGE_COUNTER, COMPONENT_FORCE_MARKER, COMPONENT_RESOURCE_COUNTER}, COMPONENT_DAMAGE_COUNTER | COMPONENT_FORCE_MARKER | COMPONENT_RESOURCE_COUNTER},
-		{"should not add duplicate component with mask", []ComponentMask{COMPONENT_DAMAGE_COUNTER, COMPONENT_DAMAGE_COUNTER, COMPONENT_DAMAGE_COUNTER}, COMPONENT_DAMAGE_COUNTER},
+		{"should add one component with mask", []ComponentMask{COMPONENT_MOCK_1}, COMPONENT_MOCK_1},
+		{"should add many components with mask", []ComponentMask{COMPONENT_MOCK_1, COMPONENT_MOCK_2, COMPONENT_MOCK_3}, COMPONENT_MOCK_1 | COMPONENT_MOCK_2 | COMPONENT_MOCK_3},
+		{"should not add duplicate component with mask", []ComponentMask{COMPONENT_MOCK_1, COMPONENT_MOCK_1, COMPONENT_MOCK_1}, COMPONENT_MOCK_1},
 	}
 
 	for _, c := range cases {
@@ -51,8 +57,8 @@ func TestRemoveComponent(t *testing.T) {
 		name string
 		in   []ComponentMask
 	}{
-		{"should remove one component", []ComponentMask{COMPONENT_DAMAGE_COUNTER}},
-		{"should remove many components", []ComponentMask{COMPONENT_DAMAGE_COUNTER, COMPONENT_FORCE_MARKER, COMPONENT_RESOURCE_COUNTER}},
+		{"should remove one component", []ComponentMask{COMPONENT_MOCK_1}},
+		{"should remove many components", []ComponentMask{COMPONENT_MOCK_1, COMPONENT_MOCK_2, COMPONENT_MOCK_3}},
 	}
 
 	for _, c := range cases {
