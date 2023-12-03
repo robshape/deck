@@ -5,18 +5,18 @@ import (
 )
 
 func TestNewEntityManager(t *testing.T) {
-	entityManager := NewEntityManger()
+	entityManager := NewEntityManager()
 
 	if entityManager == nil {
-		t.Error("should be non-nil")
+		t.Error("got nil, want non-nil")
 	}
 }
 
 func TestCreateEntity(t *testing.T) {
 	cases := []struct {
-		name             string
-		numberOfEntities int
-		entityIds        []uint32
+		name string
+		in   int
+		want []uint32
 	}{
 		{"should start with no entities", 0, nil},
 		{"should create one entity with id", 1, []uint32{1}},
@@ -25,19 +25,19 @@ func TestCreateEntity(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
-			entityManager := NewEntityManger()
+			entityManager := NewEntityManager()
 
-			for i := 0; i < c.numberOfEntities; i++ {
+			for i := 0; i < c.in; i++ {
 				entityManager.CreateEntity()
 			}
 			entities := entityManager.Entities()
 
-			if len(entities) != c.numberOfEntities {
-				t.Error(c.name)
+			if len(entities) != c.in {
+				t.Errorf("got %d, want %d", len(entities), c.in)
 			}
 			for i, e := range entities {
-				if e.id != c.entityIds[i] {
-					t.Error(c.name)
+				if e.id != c.want[i] {
+					t.Errorf("got %d, want %d", e.id, c.want[i])
 				}
 			}
 		})
@@ -46,8 +46,8 @@ func TestCreateEntity(t *testing.T) {
 
 func TestDestroyEntity(t *testing.T) {
 	cases := []struct {
-		name             string
-		numberOfEntities int
+		name string
+		in   int
 	}{
 		{"should destroy one entity", 1},
 		{"should destroy many entities", 3},
@@ -55,15 +55,15 @@ func TestDestroyEntity(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
-			entityManager := NewEntityManger()
+			entityManager := NewEntityManager()
 
-			for i := 0; i < c.numberOfEntities; i++ {
+			for i := 0; i < c.in; i++ {
 				entityManager.CreateEntity()
 			}
 			entities := entityManager.Entities()
 
-			if len(entities) != c.numberOfEntities {
-				t.Error(c.name)
+			if len(entities) != c.in {
+				t.Errorf("got %d, want %d", len(entities), c.in)
 			}
 
 			for i := len(entities) - 1; i >= 0; i-- {
@@ -72,7 +72,7 @@ func TestDestroyEntity(t *testing.T) {
 			entities = entityManager.Entities()
 
 			if len(entities) != 0 {
-				t.Error(c.name)
+				t.Errorf("got %d, want 0", len(entities))
 			}
 		})
 	}
