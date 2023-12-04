@@ -1,24 +1,29 @@
-add CI workflow
-  golangci-lint
-
 implement ecs
-  https://austinmorlan.com/posts/entity_component_system/
-  https://bfnightly.bracketproductions.com/chapter_2.html
-  https://docs.unity3d.com/Packages/com.unity.entities@1.2/manual/index.html
-  https://en.wikipedia.org/wiki/Entity_component_system/
-  https://github.com/SanderMertens/ecs-faq/
+  add managers
+    https://austinmorlan.com/posts/entity_component_system/
+    https://en.wikipedia.org/wiki/Entity_component_system
+    https://gamedev.stackexchange.com/a/31491/
+    https://github.com/SanderMertens/ecs-faq/
+    https://savas.ca/nomad/
 
-  implement game parts as entities and components
+  add ecs.go coordinator
+    sync preallocated slices between managers
+    add ManagedEntity
+      link managers via Entity for intuitive interface
 
-  implement rules as components and systems
+  create individual component managers for each component type
+
+  add performance benchmark test
+
+  implement game components and rules
     https://cdn.1j1ju.com/medias/27/e1/a6-star-realms-rulebook.pdf
     https://cdn.1j1ju.com/medias/62/18/30-star-wars-the-deckbuilding-game-rulebook.pdf
+
+add CI workflow
+  golangci-lint
 
 add WASM boilerplate
 
 research
   https://gameprogrammingpatterns.com/game-loop.html
-  https://journal.stuffwithstuff.com/2014/07/15/a-turn-based-game-loop/
   https://medium.com/@tglaiel/how-to-make-your-game-run-at-60fps-24c61210fe75/
-  https://reddit.com/r/howdidtheycodeit/comments/voyyg3/how_are_complex_card_games_like_magic_hearthstone/
-  https://threedots.tech/post/making-games-in-go/
