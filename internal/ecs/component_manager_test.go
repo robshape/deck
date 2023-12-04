@@ -20,14 +20,14 @@ func (mc *mockComponent) Type() ComponentType {
 }
 
 func TestNewComponentManager(t *testing.T) {
-	componentManager := NewComponentManager(MAX_ENTITIES)
+	componentManager := newComponentManager(maxEntities)
 	entityComponentsCount := len(componentManager.entityComponents)
 
 	if componentManager == nil {
 		t.Error("got nil, want non-nil")
 	}
-	if entityComponentsCount != MAX_ENTITIES {
-		t.Errorf("got %d, want %d", entityComponentsCount, MAX_ENTITIES)
+	if entityComponentsCount != maxEntities {
+		t.Errorf("got %d, want %d", entityComponentsCount, maxEntities)
 	}
 }
 
@@ -35,7 +35,7 @@ func TestAddComponent(t *testing.T) {
 	cases := []struct {
 		name string
 		in   []ComponentType
-		want ComponentsMask
+		want componentsMask
 	}{
 		{"should add one component with mask", []ComponentType{COMPONENT_MOCK_1}, COMPONENT_MOCK_1},
 		{"should add many components with mask", []ComponentType{COMPONENT_MOCK_1, COMPONENT_MOCK_2, COMPONENT_MOCK_3}, COMPONENT_MOCK_1 | COMPONENT_MOCK_2 | COMPONENT_MOCK_3},
@@ -44,15 +44,15 @@ func TestAddComponent(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
-			componentManager := NewComponentManager(MAX_ENTITIES)
-			entityManager := NewEntityManager(MAX_ENTITIES)
-			entity := entityManager.CreateEntity()
+			componentManager := newComponentManager(maxEntities)
+			entityManager := newEntityManager(maxEntities)
+			entity := entityManager.createEntity()
 
 			for _, componentType := range c.in {
-				componentManager.AddComponent(entity, &mockComponent{componentType: componentType})
+				componentManager.addComponent(entity, &mockComponent{componentType: componentType})
 			}
-			componentsCount := componentManager.ComponentsCount(entity)
-			componentsMask := componentManager.ComponentsMask(entity)
+			componentsCount := componentManager.componentsCount(entity)
+			componentsMask := componentManager.componentsMask(entity)
 			wantCount := int(math.Round(math.Sqrt(float64(c.want)))) // Count bits set in mask
 
 			if componentsCount != wantCount {
@@ -76,14 +76,14 @@ func TestRemoveComponent(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
-			componentManager := NewComponentManager(MAX_ENTITIES)
-			entityManager := NewEntityManager(MAX_ENTITIES)
-			entity := entityManager.CreateEntity()
+			componentManager := newComponentManager(maxEntities)
+			entityManager := newEntityManager(maxEntities)
+			entity := entityManager.createEntity()
 
 			for _, componentType := range c.in {
-				componentManager.AddComponent(entity, &mockComponent{componentType: componentType})
+				componentManager.addComponent(entity, &mockComponent{componentType: componentType})
 			}
-			componentsCount := componentManager.ComponentsCount(entity)
+			componentsCount := componentManager.componentsCount(entity)
 			inCount := len(c.in)
 
 			if componentsCount != inCount {
@@ -91,10 +91,10 @@ func TestRemoveComponent(t *testing.T) {
 			}
 
 			for _, componentType := range c.in {
-				componentManager.RemoveComponent(entity, componentType)
+				componentManager.removeComponent(entity, componentType)
 			}
-			componentsCount = componentManager.ComponentsCount(entity)
-			componentsMask := componentManager.ComponentsMask(entity)
+			componentsCount = componentManager.componentsCount(entity)
+			componentsMask := componentManager.componentsMask(entity)
 
 			if componentsCount != 0 {
 				t.Errorf("got %d, want 0", componentsCount)

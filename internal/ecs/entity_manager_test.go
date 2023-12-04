@@ -5,14 +5,14 @@ import (
 )
 
 func TestNewEntityManager(t *testing.T) {
-	entityManager := NewEntityManager(MAX_ENTITIES)
-	_, inactiveEntitiesCount := entityManager.EntitiesCount()
+	entityManager := newEntityManager(maxEntities)
+	_, inactiveEntitiesCount := entityManager.entitiesCount()
 
 	if entityManager == nil {
 		t.Error("got nil, want non-nil")
 	}
-	if inactiveEntitiesCount != MAX_ENTITIES {
-		t.Errorf("got %d, want %d", inactiveEntitiesCount, MAX_ENTITIES)
+	if inactiveEntitiesCount != maxEntities {
+		t.Errorf("got %d, want %d", inactiveEntitiesCount, maxEntities)
 	}
 }
 
@@ -29,14 +29,14 @@ func TestCreateEntity(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
-			entityManager := NewEntityManager(MAX_ENTITIES)
+			entityManager := newEntityManager(maxEntities)
 
 			entities := []entity{}
 			for i := 0; i < c.in; i++ {
-				entity := entityManager.CreateEntity()
+				entity := entityManager.createEntity()
 				entities = append(entities, entity)
 			}
-			activeEntitiesCount, _ := entityManager.EntitiesCount()
+			activeEntitiesCount, _ := entityManager.entitiesCount()
 
 			if activeEntitiesCount != c.in {
 				t.Errorf("got %d, want %d", activeEntitiesCount, c.in)
@@ -61,23 +61,23 @@ func TestDestroyEntity(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
-			entityManager := NewEntityManager(MAX_ENTITIES)
+			entityManager := newEntityManager(maxEntities)
 
 			entities := []entity{}
 			for i := 0; i < c.in; i++ {
-				entity := entityManager.CreateEntity()
+				entity := entityManager.createEntity()
 				entities = append(entities, entity)
 			}
-			activeEntitiesCount, _ := entityManager.EntitiesCount()
+			activeEntitiesCount, _ := entityManager.entitiesCount()
 
 			if activeEntitiesCount != c.in {
 				t.Errorf("got %d, want %d", activeEntitiesCount, c.in)
 			}
 
 			for i := activeEntitiesCount - 1; i >= 0; i-- {
-				entityManager.DestroyEntity(entities[i])
+				entityManager.destroyEntity(entities[i])
 			}
-			activeEntitiesCount, _ = entityManager.EntitiesCount()
+			activeEntitiesCount, _ = entityManager.entitiesCount()
 
 			if activeEntitiesCount != 0 {
 				t.Errorf("got %d, want 0", activeEntitiesCount)
