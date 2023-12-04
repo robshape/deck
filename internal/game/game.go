@@ -8,7 +8,7 @@ import (
 
 const (
 	// Automatically increment by the power of two
-	COMPONENT_DAMAGE_COUNTER ecs.ComponentMask = 1 << iota
+	COMPONENT_DAMAGE_COUNTER ecs.ComponentType = 1 << iota
 	COMPONENT_FORCE_MARKER
 	COMPONENT_RESOURCE_COUNTER
 )

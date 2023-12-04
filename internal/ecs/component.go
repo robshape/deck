@@ -1,7 +1,11 @@
 package ecs
 
-type ComponentMask uint64
+const MAX_COMPONENTS = 64 // Limited by uint64 bitmask
+
+type ComponentType uint64
+
+type ComponentsMask = ComponentType
 
 type Component interface {
-	Mask() ComponentMask
+	Type() ComponentType
 }
