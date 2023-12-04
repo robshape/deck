@@ -24,8 +24,8 @@ func NewComponentManager(size int) *componentManager {
 	}
 }
 
-func (cm *componentManager) AddComponent(entity *entity, component Component) error {
-	ec := cm.entityComponents[entity.id]
+func (cm *componentManager) AddComponent(entity entity, component Component) error {
+	ec := cm.entityComponents[entity]
 
 	if len(ec.components) == MAX_COMPONENTS {
 		return errors.New("maximum number of components already added")
@@ -38,18 +38,18 @@ func (cm *componentManager) AddComponent(entity *entity, component Component) er
 	return nil
 }
 
-func (cm *componentManager) ComponentsCount(entity *entity) int {
-	ec := cm.entityComponents[entity.id]
+func (cm *componentManager) ComponentsCount(entity entity) int {
+	ec := cm.entityComponents[entity]
 	return len(ec.components)
 }
 
-func (cm *componentManager) ComponentsMask(entity *entity) ComponentsMask {
-	ec := cm.entityComponents[entity.id]
+func (cm *componentManager) ComponentsMask(entity entity) ComponentsMask {
+	ec := cm.entityComponents[entity]
 	return ec.componentsMask
 }
 
-func (cm *componentManager) RemoveComponent(entity *entity, componentType ComponentType) {
-	ec := cm.entityComponents[entity.id]
+func (cm *componentManager) RemoveComponent(entity entity, componentType ComponentType) {
+	ec := cm.entityComponents[entity]
 
 	for i, c := range ec.components {
 		if c.Type() == componentType {

@@ -45,7 +45,7 @@ func TestAddComponent(t *testing.T) {
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
 			componentManager := NewComponentManager(MAX_ENTITIES)
-			entityManager := NewEntityManager()
+			entityManager := NewEntityManager(MAX_ENTITIES)
 			entity := entityManager.CreateEntity()
 
 			for _, componentType := range c.in {
@@ -77,7 +77,7 @@ func TestRemoveComponent(t *testing.T) {
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
 			componentManager := NewComponentManager(MAX_ENTITIES)
-			entityManager := NewEntityManager()
+			entityManager := NewEntityManager(MAX_ENTITIES)
 			entity := entityManager.CreateEntity()
 
 			for _, componentType := range c.in {

@@ -1,39 +1,36 @@
 package ecs
 
-import (
-	"sync/atomic"
-)
-
 type entityManager struct {
-	counter  uint32
-	entities []*entity
+	activeEntitiesCount int
+	inactiveEntities    []entity
 }
 
-func NewEntityManager() *entityManager {
+func NewEntityManager(size int) *entityManager {
+	allocatedSlice := make([]entity, size)
+	for i := uint32(0); i < uint32(size); i++ {
+		allocatedSlice[i] = i
+	}
+
 	return &entityManager{
-		entities: []*entity{},
+		inactiveEntities: allocatedSlice,
 	}
 }
 
-func (em *entityManager) CreateEntity() *entity {
-	entity := &entity{
-		id: atomic.AddUint32(&em.counter, 1),
-	}
-	em.entities = append(em.entities, entity)
+func (em *entityManager) CreateEntity() entity {
+	entity := em.inactiveEntities[0]
+	em.inactiveEntities = em.inactiveEntities[1:]
+
+	em.activeEntitiesCount++
+
 	return entity
 }
 
-func (em *entityManager) DestroyEntity(entity *entity) {
-	for i, e := range em.entities {
-		if e.id == entity.id {
-			em.entities[i] = em.entities[len(em.entities)-1]
-			em.entities[len(em.entities)-1] = nil
-			em.entities = em.entities[:len(em.entities)-1]
-			break
-		}
-	}
+func (em *entityManager) DestroyEntity(entity entity) {
+	em.inactiveEntities = append(em.inactiveEntities, entity)
+
+	em.activeEntitiesCount--
 }
 
-func (em *entityManager) Entities() []*entity {
-	return em.entities
+func (em *entityManager) EntitiesCount() (int, int) {
+	return em.activeEntitiesCount, len(em.inactiveEntities)
 }
