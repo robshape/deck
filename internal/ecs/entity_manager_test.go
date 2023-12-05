@@ -6,13 +6,13 @@ import (
 
 func TestNewEntityManager(t *testing.T) {
 	entityManager := newEntityManager(maxEntities)
-	_, inactiveEntitiesCount := entityManager.entitiesCount()
+	_, destroyedEntitiesCount := entityManager.entitiesCount()
 
 	if entityManager == nil {
 		t.Error("got nil, want non-nil")
 	}
-	if inactiveEntitiesCount != maxEntities {
-		t.Errorf("got %d, want %d", inactiveEntitiesCount, maxEntities)
+	if destroyedEntitiesCount != maxEntities {
+		t.Errorf("got %d, want %d", destroyedEntitiesCount, maxEntities)
 	}
 }
 
@@ -36,10 +36,10 @@ func TestCreateEntity(t *testing.T) {
 				entity := entityManager.createEntity()
 				entities = append(entities, entity)
 			}
-			activeEntitiesCount, _ := entityManager.entitiesCount()
+			createdEntitiesCount, _ := entityManager.entitiesCount()
 
-			if activeEntitiesCount != c.in {
-				t.Errorf("got %d, want %d", activeEntitiesCount, c.in)
+			if createdEntitiesCount != c.in {
+				t.Errorf("got %d, want %d", createdEntitiesCount, c.in)
 			}
 			for i, entity := range entities {
 				if entity != c.want[i] {
@@ -68,19 +68,19 @@ func TestDestroyEntity(t *testing.T) {
 				entity := entityManager.createEntity()
 				entities = append(entities, entity)
 			}
-			activeEntitiesCount, _ := entityManager.entitiesCount()
+			createdEntitiesCount, _ := entityManager.entitiesCount()
 
-			if activeEntitiesCount != c.in {
-				t.Errorf("got %d, want %d", activeEntitiesCount, c.in)
+			if createdEntitiesCount != c.in {
+				t.Errorf("got %d, want %d", createdEntitiesCount, c.in)
 			}
 
-			for i := activeEntitiesCount - 1; i >= 0; i-- {
+			for i := createdEntitiesCount - 1; i >= 0; i-- {
 				entityManager.destroyEntity(entities[i])
 			}
-			activeEntitiesCount, _ = entityManager.entitiesCount()
+			createdEntitiesCount, _ = entityManager.entitiesCount()
 
-			if activeEntitiesCount != 0 {
-				t.Errorf("got %d, want 0", activeEntitiesCount)
+			if createdEntitiesCount != 0 {
+				t.Errorf("got %d, want 0", createdEntitiesCount)
 			}
 		})
 	}

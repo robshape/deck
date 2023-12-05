@@ -1,8 +1,8 @@
 package ecs
 
 type entityManager struct {
-	activeEntitiesCount int
-	inactiveEntities    []entity
+	createdEntitiesCount int
+	destroyedEntities    []entity
 }
 
 func newEntityManager(size int) *entityManager {
@@ -12,25 +12,25 @@ func newEntityManager(size int) *entityManager {
 	}
 
 	return &entityManager{
-		inactiveEntities: preallocated,
+		destroyedEntities: preallocated,
 	}
 }
 
 func (em *entityManager) createEntity() entity {
-	entity := em.inactiveEntities[0]
-	em.inactiveEntities = em.inactiveEntities[1:]
+	entity := em.destroyedEntities[0]
+	em.destroyedEntities = em.destroyedEntities[1:]
 
-	em.activeEntitiesCount++
+	em.createdEntitiesCount++
 
 	return entity
 }
 
 func (em *entityManager) destroyEntity(entity entity) {
-	em.inactiveEntities = append(em.inactiveEntities, entity)
+	em.destroyedEntities = append(em.destroyedEntities, entity)
 
-	em.activeEntitiesCount--
+	em.createdEntitiesCount--
 }
 
 func (em *entityManager) entitiesCount() (int, int) {
-	return em.activeEntitiesCount, len(em.inactiveEntities)
+	return em.createdEntitiesCount, len(em.destroyedEntities)
 }
