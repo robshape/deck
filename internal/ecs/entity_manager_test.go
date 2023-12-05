@@ -1,18 +1,20 @@
-package ecs
+package ecs_test
 
 import (
 	"testing"
+
+	"github.com/robshape/deck/internal/ecs"
 )
 
 func TestNewEntityManager(t *testing.T) {
-	entityManager := newEntityManager(maxEntities)
-	_, destroyedEntitiesCount := entityManager.entitiesCount()
+	entityManager := ecs.NewEntityManager(ecs.MaxEntities)
+	_, destroyedEntitiesCount := entityManager.EntitiesCount()
 
 	if entityManager == nil {
 		t.Error("got nil, want non-nil")
 	}
-	if destroyedEntitiesCount != maxEntities {
-		t.Errorf("got %d, want %d", destroyedEntitiesCount, maxEntities)
+	if destroyedEntitiesCount != ecs.MaxEntities {
+		t.Errorf("got %d, want %d", destroyedEntitiesCount, ecs.MaxEntities)
 	}
 }
 
@@ -29,14 +31,14 @@ func TestCreateEntity(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
-			entityManager := newEntityManager(maxEntities)
+			entityManager := ecs.NewEntityManager(ecs.MaxEntities)
 
-			entities := []entity{}
+			entities := []ecs.Entity{}
 			for i := 0; i < c.in; i++ {
-				entity := entityManager.createEntity()
+				entity := entityManager.CreateEntity()
 				entities = append(entities, entity)
 			}
-			createdEntitiesCount, _ := entityManager.entitiesCount()
+			createdEntitiesCount, _ := entityManager.EntitiesCount()
 
 			if createdEntitiesCount != c.in {
 				t.Errorf("got %d, want %d", createdEntitiesCount, c.in)
@@ -61,23 +63,23 @@ func TestDestroyEntity(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.name, func(t *testing.T) {
-			entityManager := newEntityManager(maxEntities)
+			entityManager := ecs.NewEntityManager(ecs.MaxEntities)
 
-			entities := []entity{}
+			entities := []ecs.Entity{}
 			for i := 0; i < c.in; i++ {
-				entity := entityManager.createEntity()
+				entity := entityManager.CreateEntity()
 				entities = append(entities, entity)
 			}
-			createdEntitiesCount, _ := entityManager.entitiesCount()
+			createdEntitiesCount, _ := entityManager.EntitiesCount()
 
 			if createdEntitiesCount != c.in {
 				t.Errorf("got %d, want %d", createdEntitiesCount, c.in)
 			}
 
 			for i := createdEntitiesCount - 1; i >= 0; i-- {
-				entityManager.destroyEntity(entities[i])
+				entityManager.DestroyEntity(entities[i])
 			}
-			createdEntitiesCount, _ = entityManager.entitiesCount()
+			createdEntitiesCount, _ = entityManager.EntitiesCount()
 
 			if createdEntitiesCount != 0 {
 				t.Errorf("got %d, want 0", createdEntitiesCount)

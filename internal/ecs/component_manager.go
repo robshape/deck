@@ -10,10 +10,10 @@ type componentManager struct {
 
 type entityComponents struct {
 	components     []component
-	componentsMask componentsMask // Bitmask of all added components
+	componentsMask ComponentsMask // Bitmask of all added components
 }
 
-func newComponentManager(size int) *componentManager {
+func NewComponentManager(size int) *componentManager {
 	preallocated := make([]*entityComponents, size)
 	for i := range preallocated {
 		preallocated[i] = &entityComponents{}
@@ -24,7 +24,7 @@ func newComponentManager(size int) *componentManager {
 	}
 }
 
-func (cm *componentManager) addComponent(entity entity, component component) error {
+func (cm *componentManager) AddComponent(entity Entity, component component) error {
 	ec := cm.entityComponents[entity]
 
 	if len(ec.components) == maxComponents {
@@ -38,19 +38,23 @@ func (cm *componentManager) addComponent(entity entity, component component) err
 	return nil
 }
 
-func (cm *componentManager) componentsCount(entity entity) int {
+func (cm *componentManager) ComponentsCount(entity Entity) int {
 	return len(cm.entityComponents[entity].components)
 }
 
-func (cm *componentManager) componentsMask(entity entity) componentsMask {
+func (cm *componentManager) ComponentsMask(entity Entity) ComponentsMask {
 	return cm.entityComponents[entity].componentsMask
 }
 
-func (cm *componentManager) destroyEntityComponents(entity entity) {
+func (cm *componentManager) DestroyEntityComponents(entity Entity) {
 	cm.entityComponents[entity] = &entityComponents{}
 }
 
-func (cm *componentManager) removeComponent(entity entity, componentType ComponentType) {
+func (cm *componentManager) EntityComponentsCount() int {
+	return len(cm.entityComponents)
+}
+
+func (cm *componentManager) RemoveComponent(entity Entity, componentType ComponentType) {
 	ec := cm.entityComponents[entity]
 
 	for i, component := range ec.components {

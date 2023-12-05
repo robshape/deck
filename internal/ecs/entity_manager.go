@@ -2,11 +2,11 @@ package ecs
 
 type entityManager struct {
 	createdEntitiesCount int
-	destroyedEntities    []entity
+	destroyedEntities    []Entity
 }
 
-func newEntityManager(size int) *entityManager {
-	preallocated := make([]entity, size)
+func NewEntityManager(size int) *entityManager {
+	preallocated := make([]Entity, size)
 	for i := uint32(0); i < uint32(size); i++ {
 		preallocated[i] = i
 	}
@@ -16,7 +16,7 @@ func newEntityManager(size int) *entityManager {
 	}
 }
 
-func (em *entityManager) createEntity() entity {
+func (em *entityManager) CreateEntity() Entity {
 	entity := em.destroyedEntities[0]
 	em.destroyedEntities = em.destroyedEntities[1:]
 
@@ -25,12 +25,12 @@ func (em *entityManager) createEntity() entity {
 	return entity
 }
 
-func (em *entityManager) destroyEntity(entity entity) {
+func (em *entityManager) DestroyEntity(entity Entity) {
 	em.destroyedEntities = append(em.destroyedEntities, entity)
 
 	em.createdEntitiesCount--
 }
 
-func (em *entityManager) entitiesCount() (createdEntitiesCount int, destroyedEntitiesCount int) {
+func (em *entityManager) EntitiesCount() (createdEntitiesCount int, destroyedEntitiesCount int) {
 	return em.createdEntitiesCount, len(em.destroyedEntities)
 }

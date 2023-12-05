@@ -7,24 +7,24 @@ type ecs struct {
 
 func NewECS(size int) *ecs {
 	return &ecs{
-		componentManager: newComponentManager(size),
-		entityManager:    newEntityManager(size),
+		componentManager: NewComponentManager(size),
+		entityManager:    NewEntityManager(size),
 	}
 }
 
-func (ecs *ecs) AddComponent(entity entity, component component) error {
-	return ecs.componentManager.addComponent(entity, component)
+func (ecs *ecs) AddComponent(entity Entity, component component) error {
+	return ecs.componentManager.AddComponent(entity, component)
 }
 
-func (ecs *ecs) CreateEntity() entity {
-	return ecs.entityManager.createEntity()
+func (ecs *ecs) CreateEntity() Entity {
+	return ecs.entityManager.CreateEntity()
 }
 
-func (ecs *ecs) DestroyEntity(entity entity) {
-	ecs.componentManager.destroyEntityComponents(entity)
-	ecs.entityManager.destroyEntity(entity)
+func (ecs *ecs) DestroyEntity(entity Entity) {
+	ecs.componentManager.DestroyEntityComponents(entity)
+	ecs.entityManager.DestroyEntity(entity)
 }
 
-func (ecs *ecs) RemoveComponent(entity entity, componentType ComponentType) {
-	ecs.componentManager.removeComponent(entity, componentType)
+func (ecs *ecs) RemoveComponent(entity Entity, componentType ComponentType) {
+	ecs.componentManager.RemoveComponent(entity, componentType)
 }

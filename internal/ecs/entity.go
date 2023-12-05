@@ -1,5 +1,5 @@
 package ecs
 
-const maxEntities = 128
+const MaxEntities = 128
 
-type entity = uint32
+type Entity = uint32
