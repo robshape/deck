@@ -5,10 +5,10 @@ type ecs struct {
 	entityManager    *entityManager
 }
 
-func NewECS(size int) *ecs {
+func NewECS(maxEntities int) *ecs {
 	return &ecs{
-		componentManager: NewComponentManager(size),
-		entityManager:    NewEntityManager(size),
+		componentManager: NewComponentManager(maxEntities),
+		entityManager:    NewEntityManager(maxEntities),
 	}
 }
 
@@ -16,7 +16,7 @@ func (ecs *ecs) AddComponent(entity Entity, component component) error {
 	return ecs.componentManager.AddComponent(entity, component)
 }
 
-func (ecs *ecs) CreateEntity() Entity {
+func (ecs *ecs) CreateEntity() (Entity, error) {
 	return ecs.entityManager.CreateEntity()
 }
 

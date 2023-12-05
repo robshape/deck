@@ -13,8 +13,8 @@ type entityComponents struct {
 	componentsMask ComponentsMask // Bitmask of all added components
 }
 
-func NewComponentManager(size int) *componentManager {
-	preallocated := make([]*entityComponents, size)
+func NewComponentManager(maxEntities int) *componentManager {
+	preallocated := make([]*entityComponents, maxEntities)
 	for i := range preallocated {
 		preallocated[i] = &entityComponents{}
 	}

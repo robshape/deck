@@ -35,7 +35,7 @@ func TestCreateEntity(t *testing.T) {
 
 			entities := []ecs.Entity{}
 			for i := 0; i < c.in; i++ {
-				entity := entityManager.CreateEntity()
+				entity, _ := entityManager.CreateEntity()
 				entities = append(entities, entity)
 			}
 			createdEntitiesCount, _ := entityManager.EntitiesCount()
@@ -67,7 +67,7 @@ func TestDestroyEntity(t *testing.T) {
 
 			entities := []ecs.Entity{}
 			for i := 0; i < c.in; i++ {
-				entity := entityManager.CreateEntity()
+				entity, _ := entityManager.CreateEntity()
 				entities = append(entities, entity)
 			}
 			createdEntitiesCount, _ := entityManager.EntitiesCount()

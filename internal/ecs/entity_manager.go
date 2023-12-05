@@ -1,13 +1,17 @@
 package ecs
 
+import (
+	"errors"
+)
+
 type entityManager struct {
 	createdEntitiesCount int
 	destroyedEntities    []Entity
 }
 
-func NewEntityManager(size int) *entityManager {
-	preallocated := make([]Entity, size)
-	for i := uint32(0); i < uint32(size); i++ {
+func NewEntityManager(maxEntities int) *entityManager {
+	preallocated := make([]Entity, maxEntities)
+	for i := uint32(0); i < uint32(maxEntities); i++ {
 		preallocated[i] = i
 	}
 
@@ -16,13 +20,17 @@ func NewEntityManager(size int) *entityManager {
 	}
 }
 
-func (em *entityManager) CreateEntity() Entity {
+func (em *entityManager) CreateEntity() (Entity, error) {
+	if (len(em.destroyedEntities)) == 0 {
+		return 0, errors.New("maximum number of entities already created")
+	}
+
 	entity := em.destroyedEntities[0]
 	em.destroyedEntities = em.destroyedEntities[1:]
 
 	em.createdEntitiesCount++
 
-	return entity
+	return entity, nil
 }
 
 func (em *entityManager) DestroyEntity(entity Entity) {
