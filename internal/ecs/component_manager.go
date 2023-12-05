@@ -51,8 +51,8 @@ func (cm *componentManager) componentsMask(entity entity) componentsMask {
 func (cm *componentManager) removeComponent(entity entity, componentType ComponentType) {
 	ec := cm.entityComponents[entity]
 
-	for i, c := range ec.components {
-		if c.Type() == componentType {
+	for i, component := range ec.components {
+		if component.Type() == componentType {
 			ec.components[i] = ec.components[len(ec.components)-1]
 			ec.components[len(ec.components)-1] = nil
 			ec.components = ec.components[:len(ec.components)-1]

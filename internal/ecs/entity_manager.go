@@ -31,6 +31,6 @@ func (em *entityManager) destroyEntity(entity entity) {
 	em.createdEntitiesCount--
 }
 
-func (em *entityManager) entitiesCount() (int, int) {
+func (em *entityManager) entitiesCount() (createdEntitiesCount int, destroyedEntitiesCount int) {
 	return em.createdEntitiesCount, len(em.destroyedEntities)
 }
