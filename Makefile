@@ -1,4 +1,4 @@
-.PHONY: audit build clean install run test
+.PHONY: audit benchmark build clean install run test
 
 audit:
 	go mod verify
@@ -6,6 +6,9 @@ audit:
 	go fmt ./...
 	go test -coverprofile=cover.out -race -v ./...
 	#go tool cover -html cover.out -o cover.html
+
+benchmark:
+	go test -bench=Bench -benchmem ./...
 
 build:
 	go build -ldflags="-s -w" -o ./bin/deck ./cmd/deck
