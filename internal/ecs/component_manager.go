@@ -39,13 +39,15 @@ func (cm *componentManager) addComponent(entity entity, component component) err
 }
 
 func (cm *componentManager) componentsCount(entity entity) int {
-	ec := cm.entityComponents[entity]
-	return len(ec.components)
+	return len(cm.entityComponents[entity].components)
 }
 
 func (cm *componentManager) componentsMask(entity entity) componentsMask {
-	ec := cm.entityComponents[entity]
-	return ec.componentsMask
+	return cm.entityComponents[entity].componentsMask
+}
+
+func (cm *componentManager) destroyEntityComponents(entity entity) {
+	cm.entityComponents[entity] = &entityComponents{}
 }
 
 func (cm *componentManager) removeComponent(entity entity, componentType ComponentType) {
