@@ -1,0 +1,12 @@
+{
+  "configurations": {
+    "launch": {
+      "adapter": "delve",
+      "configuration": {
+        "mode": "debug",
+        "program": "${workspaceRoot}/cmd/deck",
+        "request": "launch"
+      }
+    }
+  }
+}

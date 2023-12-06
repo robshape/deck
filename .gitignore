@@ -1,6 +1,5 @@
 bin/
 
 .DS_Store
-.vimspector.json
 cover.html
 cover.out
