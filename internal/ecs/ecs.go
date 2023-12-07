@@ -25,6 +25,10 @@ func (ec *ecsCoordinator) DestroyEntity(entity Entity) {
 	ec.entityManager.DestroyEntity(entity)
 }
 
+func (ec *ecsCoordinator) GetComponent(entity Entity, componentType ComponentType) component {
+	return ec.componentManager.GetComponent(entity, componentType)
+}
+
 func (ec *ecsCoordinator) RemoveComponent(entity Entity, componentType ComponentType) {
 	ec.componentManager.RemoveComponent(entity, componentType)
 }

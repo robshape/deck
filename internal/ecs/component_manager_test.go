@@ -110,6 +110,42 @@ func TestDestroyEntityComponents(t *testing.T) {
 	}
 }
 
+func TestGetComponent(t *testing.T) {
+	cases := []struct {
+		name string
+		in   []ecs.ComponentType
+	}{
+		{"should get one component", []ecs.ComponentType{componentMock1}},
+		{"should get many components", []ecs.ComponentType{componentMock1, componentMock2, componentMock3}},
+	}
+
+	for _, c := range cases {
+		t.Run(c.name, func(t *testing.T) {
+			componentManager := ecs.NewComponentManager(ecs.MaxEntities)
+			entityManager := ecs.NewEntityManager(ecs.MaxEntities)
+			entity, _ := entityManager.CreateEntity()
+
+			for _, componentType := range c.in {
+				componentManager.AddComponent(entity, &testComponent{componentType: componentType})
+			}
+			componentsCount := componentManager.ComponentsCount(entity)
+			inCount := len(c.in)
+
+			if componentsCount != inCount {
+				t.Errorf("got %d, want %d", componentsCount, inCount)
+			}
+
+			for _, componentType := range c.in {
+				component := componentManager.GetComponent(entity, componentType)
+
+				if component == nil {
+					t.Errorf("got nil, want non-nil")
+				}
+			}
+		})
+	}
+}
+
 func TestRemoveComponent(t *testing.T) {
 	cases := []struct {
 		name string

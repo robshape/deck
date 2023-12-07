@@ -54,6 +54,18 @@ func (cm *componentManager) EntityComponentsCount() int {
 	return len(cm.entityComponents)
 }
 
+func (cm *componentManager) GetComponent(entity Entity, componentType ComponentType) component {
+	ec := cm.entityComponents[entity]
+
+	for _, component := range ec.components {
+		if component.Type() == componentType {
+			return component
+		}
+	}
+
+	return nil
+}
+
 func (cm *componentManager) RemoveComponent(entity Entity, componentType ComponentType) {
 	ec := cm.entityComponents[entity]
 
