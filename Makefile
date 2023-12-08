@@ -8,7 +8,7 @@ audit:
 	#go tool cover -html cover.out -o cover.html
 
 benchmark:
-	go test -bench=Bench -benchmem ./...
+	go test -bench=Bench -benchmem -benchtime=100x ./...
 
 build:
 	go build -ldflags="-s -w" -o ./bin/deck ./cmd/deck
