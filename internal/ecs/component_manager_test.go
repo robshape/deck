@@ -8,9 +8,9 @@ import (
 )
 
 const (
-	componentMock1 = 1
-	componentMock2 = 2
-	componentMock3 = 4
+	componentTest1 = 1
+	componentTest2 = 2
+	componentTest3 = 4
 )
 
 type testComponent struct {
@@ -39,9 +39,9 @@ func TestAddComponent(t *testing.T) {
 		in   []ecs.ComponentType
 		want ecs.ComponentsMask
 	}{
-		{"should add one component with mask", []ecs.ComponentType{componentMock1}, componentMock1},
-		{"should add many components with mask", []ecs.ComponentType{componentMock1, componentMock2, componentMock3}, componentMock1 | componentMock2 | componentMock3},
-		{"should not add duplicate component with mask", []ecs.ComponentType{componentMock1, componentMock1, componentMock1}, componentMock1},
+		{"should add one component with mask", []ecs.ComponentType{componentTest1}, componentTest1},
+		{"should add many components with mask", []ecs.ComponentType{componentTest1, componentTest2, componentTest3}, componentTest1 | componentTest2 | componentTest3},
+		{"should not add duplicate component with mask", []ecs.ComponentType{componentTest1, componentTest1, componentTest1}, componentTest1},
 	}
 
 	for _, c := range cases {
@@ -72,8 +72,8 @@ func TestDestroyEntityComponents(t *testing.T) {
 		name string
 		in   []ecs.ComponentType
 	}{
-		{"should destroy one component", []ecs.ComponentType{componentMock1}},
-		{"should destroy many components", []ecs.ComponentType{componentMock1, componentMock2, componentMock3}},
+		{"should destroy one component", []ecs.ComponentType{componentTest1}},
+		{"should destroy many components", []ecs.ComponentType{componentTest1, componentTest2, componentTest3}},
 	}
 
 	for _, c := range cases {
@@ -115,8 +115,8 @@ func TestGetComponent(t *testing.T) {
 		name string
 		in   []ecs.ComponentType
 	}{
-		{"should get one component", []ecs.ComponentType{componentMock1}},
-		{"should get many components", []ecs.ComponentType{componentMock1, componentMock2, componentMock3}},
+		{"should get one component", []ecs.ComponentType{componentTest1}},
+		{"should get many components", []ecs.ComponentType{componentTest1, componentTest2, componentTest3}},
 	}
 
 	for _, c := range cases {
@@ -151,8 +151,8 @@ func TestRemoveComponent(t *testing.T) {
 		name string
 		in   []ecs.ComponentType
 	}{
-		{"should remove one component", []ecs.ComponentType{componentMock1}},
-		{"should remove many components", []ecs.ComponentType{componentMock1, componentMock2, componentMock3}},
+		{"should remove one component", []ecs.ComponentType{componentTest1}},
+		{"should remove many components", []ecs.ComponentType{componentTest1, componentTest2, componentTest3}},
 	}
 
 	for _, c := range cases {
