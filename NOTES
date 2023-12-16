@@ -6,10 +6,8 @@ implement ecs
     https://github.com/SanderMertens/ecs-faq/
     https://savas.ca/nomad/
 
-  add ecs.go coordinator
-    sync preallocated slices between managers
-    add ManagedEntity
-      link managers via Entity for intuitive interface
+  add ManagedEntity
+    link managers via Entity for intuitive interface
 
   create individual component managers for each component type
 
@@ -23,5 +21,5 @@ add CI workflow
 add WASM boilerplate
 
 research
-  https://gameprogrammingpatterns.com/game-loop.html
+  https://gameprogrammingpatterns.com/contents.html
   https://medium.com/@tglaiel/how-to-make-your-game-run-at-60fps-24c61210fe75/
