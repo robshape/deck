@@ -17,8 +17,8 @@ type testComponent struct {
 	componentType ecs.ComponentType
 }
 
-func (mc *testComponent) Type() ecs.ComponentType {
-	return mc.componentType
+func (tc *testComponent) Type() ecs.ComponentType {
+	return tc.componentType
 }
 
 func TestNewComponentManager(t *testing.T) {
