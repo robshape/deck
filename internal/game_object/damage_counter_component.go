@@ -1,4 +1,4 @@
-package game_objects
+package game_object
 
 import (
 	"github.com/robshape/deck/internal/ecs"
