@@ -10,9 +10,9 @@ func loop(tickRate time.Duration, onTick func(float64)) {
 
 	for range tick {
 		now := time.Now().UnixNano()
-		delta := float64(now-start) / float64(time.Second)
+		dt := float64(now-start) / float64(time.Second)
 		start = now
 
-		onTick(delta)
+		onTick(dt)
 	}
 }
