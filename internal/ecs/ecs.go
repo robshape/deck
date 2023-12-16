@@ -1,44 +1,44 @@
 package ecs
 
-type ecsManager struct {
+type EcsManager struct {
 	componentManager *componentManager
 	entityManager    *entityManager
 	systemManager    *systemManager
 }
 
-func NewECSManager(maxEntities int) *ecsManager {
-	return &ecsManager{
+func NewECSManager(maxEntities int) *EcsManager {
+	return &EcsManager{
 		componentManager: NewComponentManager(maxEntities),
 		entityManager:    NewEntityManager(maxEntities),
 		systemManager:    NewSystemManager(),
 	}
 }
 
-func (em *ecsManager) AddComponent(entity Entity, component component) error {
+func (em *EcsManager) AddComponent(entity Entity, component Component) error {
 	return em.componentManager.AddComponent(entity, component)
 }
 
-func (em *ecsManager) CreateEntity() (Entity, error) {
+func (em *EcsManager) CreateEntity() (Entity, error) {
 	return em.entityManager.CreateEntity()
 }
 
-func (em *ecsManager) DestroyEntity(entity Entity) {
+func (em *EcsManager) DestroyEntity(entity Entity) {
 	em.componentManager.DestroyEntityComponents(entity)
 	em.entityManager.DestroyEntity(entity)
 }
 
-func (em *ecsManager) GetComponent(entity Entity, componentType ComponentType) component {
+func (em *EcsManager) GetComponent(entity Entity, componentType ComponentType) Component {
 	return em.componentManager.GetComponent(entity, componentType)
 }
 
-func (em *ecsManager) RegisterSystem(system System) {
+func (em *EcsManager) RegisterSystem(system System) {
 	em.systemManager.RegisterSystem(system)
 }
 
-func (em *ecsManager) RemoveComponent(entity Entity, componentType ComponentType) {
+func (em *EcsManager) RemoveComponent(entity Entity, componentType ComponentType) {
 	em.componentManager.RemoveComponent(entity, componentType)
 }
 
-func (em *ecsManager) UpdateSystems(dt float64) {
+func (em *EcsManager) UpdateSystems(dt float64) {
 	em.systemManager.UpdateSystems(dt)
 }

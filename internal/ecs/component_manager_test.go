@@ -7,18 +7,22 @@ import (
 	"github.com/robshape/deck/internal/ecs"
 )
 
-const (
-	componentTest1 = 1
-	componentTest2 = 2
-	componentTest3 = 4
-)
+type testComponent1 struct{}
 
-type testComponent struct {
-	componentType ecs.ComponentType
+func (tc1 *testComponent1) Type() ecs.ComponentType {
+	return 1
 }
 
-func (tc *testComponent) Type() ecs.ComponentType {
-	return tc.componentType
+type testComponent2 struct{}
+
+func (tc2 *testComponent2) Type() ecs.ComponentType {
+	return 2
+}
+
+type testComponent3 struct{}
+
+func (tc3 *testComponent3) Type() ecs.ComponentType {
+	return 4
 }
 
 func TestNewComponentManager(t *testing.T) {
@@ -36,12 +40,12 @@ func TestNewComponentManager(t *testing.T) {
 func TestAddComponent(t *testing.T) {
 	cases := []struct {
 		name string
-		in   []ecs.ComponentType
+		in   []ecs.Component
 		want ecs.ComponentsMask
 	}{
-		{"should add one component with mask", []ecs.ComponentType{componentTest1}, componentTest1},
-		{"should add many components with mask", []ecs.ComponentType{componentTest1, componentTest2, componentTest3}, componentTest1 | componentTest2 | componentTest3},
-		{"should not add duplicate component with mask", []ecs.ComponentType{componentTest1, componentTest1, componentTest1}, componentTest1},
+		{"should add one component with mask", []ecs.Component{&testComponent1{}}, 1},
+		{"should add many components with mask", []ecs.Component{&testComponent1{}, &testComponent2{}, &testComponent3{}}, 1 | 2 | 4},
+		{"should not add duplicate component with mask", []ecs.Component{&testComponent1{}, &testComponent1{}, &testComponent1{}}, 1},
 	}
 
 	for _, c := range cases {
@@ -50,8 +54,8 @@ func TestAddComponent(t *testing.T) {
 			entityManager := ecs.NewEntityManager(ecs.MaxEntities)
 			entity, _ := entityManager.CreateEntity()
 
-			for _, componentType := range c.in {
-				componentManager.AddComponent(entity, &testComponent{componentType: componentType})
+			for _, component := range c.in {
+				componentManager.AddComponent(entity, component)
 			}
 			componentsCount := componentManager.ComponentsCount(entity)
 			componentsMask := componentManager.ComponentsMask(entity)
@@ -70,10 +74,10 @@ func TestAddComponent(t *testing.T) {
 func TestDestroyEntityComponents(t *testing.T) {
 	cases := []struct {
 		name string
-		in   []ecs.ComponentType
+		in   []ecs.Component
 	}{
-		{"should destroy one component", []ecs.ComponentType{componentTest1}},
-		{"should destroy many components", []ecs.ComponentType{componentTest1, componentTest2, componentTest3}},
+		{"should destroy one component", []ecs.Component{&testComponent1{}}},
+		{"should destroy many components", []ecs.Component{&testComponent1{}, &testComponent2{}, &testComponent3{}}},
 	}
 
 	for _, c := range cases {
@@ -82,8 +86,8 @@ func TestDestroyEntityComponents(t *testing.T) {
 			entityManager := ecs.NewEntityManager(ecs.MaxEntities)
 			entity, _ := entityManager.CreateEntity()
 
-			for _, componentType := range c.in {
-				componentManager.AddComponent(entity, &testComponent{componentType: componentType})
+			for _, component := range c.in {
+				componentManager.AddComponent(entity, component)
 			}
 			componentsCount := componentManager.ComponentsCount(entity)
 			componentsMask := componentManager.ComponentsMask(entity)
@@ -113,10 +117,10 @@ func TestDestroyEntityComponents(t *testing.T) {
 func TestGetComponent(t *testing.T) {
 	cases := []struct {
 		name string
-		in   []ecs.ComponentType
+		in   []ecs.Component
 	}{
-		{"should get one component", []ecs.ComponentType{componentTest1}},
-		{"should get many components", []ecs.ComponentType{componentTest1, componentTest2, componentTest3}},
+		{"should get one component", []ecs.Component{&testComponent1{}}},
+		{"should get many components", []ecs.Component{&testComponent1{}, &testComponent2{}, &testComponent3{}}},
 	}
 
 	for _, c := range cases {
@@ -125,8 +129,8 @@ func TestGetComponent(t *testing.T) {
 			entityManager := ecs.NewEntityManager(ecs.MaxEntities)
 			entity, _ := entityManager.CreateEntity()
 
-			for _, componentType := range c.in {
-				componentManager.AddComponent(entity, &testComponent{componentType: componentType})
+			for _, component := range c.in {
+				componentManager.AddComponent(entity, component)
 			}
 			componentsCount := componentManager.ComponentsCount(entity)
 			inCount := len(c.in)
@@ -135,7 +139,8 @@ func TestGetComponent(t *testing.T) {
 				t.Errorf("got %d, want %d", componentsCount, inCount)
 			}
 
-			for _, componentType := range c.in {
+			for _, component := range c.in {
+				componentType := component.Type()
 				component := componentManager.GetComponent(entity, componentType)
 
 				if component == nil {
@@ -149,10 +154,10 @@ func TestGetComponent(t *testing.T) {
 func TestRemoveComponent(t *testing.T) {
 	cases := []struct {
 		name string
-		in   []ecs.ComponentType
+		in   []ecs.Component
 	}{
-		{"should remove one component", []ecs.ComponentType{componentTest1}},
-		{"should remove many components", []ecs.ComponentType{componentTest1, componentTest2, componentTest3}},
+		{"should remove one component", []ecs.Component{&testComponent1{}}},
+		{"should remove many components", []ecs.Component{&testComponent1{}, &testComponent2{}, &testComponent3{}}},
 	}
 
 	for _, c := range cases {
@@ -161,8 +166,8 @@ func TestRemoveComponent(t *testing.T) {
 			entityManager := ecs.NewEntityManager(ecs.MaxEntities)
 			entity, _ := entityManager.CreateEntity()
 
-			for _, componentType := range c.in {
-				componentManager.AddComponent(entity, &testComponent{componentType: componentType})
+			for _, component := range c.in {
+				componentManager.AddComponent(entity, component)
 			}
 			componentsCount := componentManager.ComponentsCount(entity)
 			inCount := len(c.in)
@@ -171,7 +176,8 @@ func TestRemoveComponent(t *testing.T) {
 				t.Errorf("got %d, want %d", componentsCount, inCount)
 			}
 
-			for _, componentType := range c.in {
+			for _, component := range c.in {
+				componentType := component.Type()
 				componentManager.RemoveComponent(entity, componentType)
 			}
 			componentsCount = componentManager.ComponentsCount(entity)

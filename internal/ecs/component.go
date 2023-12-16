@@ -6,6 +6,6 @@ type ComponentType uint64
 
 type ComponentsMask = ComponentType
 
-type component interface {
+type Component interface {
 	Type() ComponentType
 }

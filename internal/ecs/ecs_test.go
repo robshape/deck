@@ -8,18 +8,22 @@ import (
 	"github.com/robshape/deck/internal/ecs"
 )
 
-const (
-	componentBenchmark1 = 1
-	componentBenchmark2 = 2
-	componentBenchmark3 = 4
-)
+type benchmarkComponent1 struct{}
 
-type benchmarkComponent struct {
-	componentType ecs.ComponentType
+func (bc1 *benchmarkComponent1) Type() ecs.ComponentType {
+	return 1
 }
 
-func (bc *benchmarkComponent) Type() ecs.ComponentType {
-	return bc.componentType
+type benchmarkComponent2 struct{}
+
+func (bc2 *benchmarkComponent2) Type() ecs.ComponentType {
+	return 2
+}
+
+type benchmarkComponent3 struct{}
+
+func (bc3 *benchmarkComponent3) Type() ecs.ComponentType {
+	return 4
 }
 
 var result ecs.Entity
@@ -49,8 +53,8 @@ func BenchmarkCreateEntities(b *testing.B) {
 
 				for j := 0; j < c.in; j++ {
 					entity, _ := ecsCoordinator.CreateEntity()
-					ecsCoordinator.AddComponent(entity, &benchmarkComponent{componentType: componentBenchmark1})
-					ecsCoordinator.AddComponent(entity, &benchmarkComponent{componentType: componentBenchmark2})
+					ecsCoordinator.AddComponent(entity, &benchmarkComponent1{})
+					ecsCoordinator.AddComponent(entity, &benchmarkComponent2{})
 
 					r = entity
 				}
@@ -85,8 +89,8 @@ func BenchmarkDestroyEntities(b *testing.B) {
 				for j := 0; j < c.in; j++ {
 					entity, _ := ecsCoordinator.CreateEntity()
 					entities = append(entities, entity)
-					ecsCoordinator.AddComponent(entity, &benchmarkComponent{componentType: componentBenchmark1})
-					ecsCoordinator.AddComponent(entity, &benchmarkComponent{componentType: componentBenchmark2})
+					ecsCoordinator.AddComponent(entity, &benchmarkComponent1{})
+					ecsCoordinator.AddComponent(entity, &benchmarkComponent2{})
 				}
 				b.StartTimer()
 
@@ -107,30 +111,30 @@ func BenchmarkGetComponent(b *testing.B) {
 	var r ecs.Entity
 
 	type in struct {
-		entities       int
-		componentTypes []ecs.ComponentType
+		entities   int
+		components []ecs.Component
 	}
 	cases := []struct {
 		name string
 		in   in
 	}{
-		{"16 entities, 1 components", in{16, []ecs.ComponentType{componentBenchmark1}}},
-		{"64 entities, 1 components", in{64, []ecs.ComponentType{componentBenchmark1}}},
-		{"256 entities, 1 components", in{256, []ecs.ComponentType{componentBenchmark1}}},
-		{"1024 entities, 1 components", in{1024, []ecs.ComponentType{componentBenchmark1}}},
-		{"4096 entities, 1 components", in{4096, []ecs.ComponentType{componentBenchmark1}}},
+		{"16 entities, 1 components", in{16, []ecs.Component{&benchmarkComponent1{}}}},
+		{"64 entities, 1 components", in{64, []ecs.Component{&benchmarkComponent1{}}}},
+		{"256 entities, 1 components", in{256, []ecs.Component{&benchmarkComponent1{}}}},
+		{"1024 entities, 1 components", in{1024, []ecs.Component{&benchmarkComponent1{}}}},
+		{"4096 entities, 1 components", in{4096, []ecs.Component{&benchmarkComponent1{}}}},
 
-		{"16 entities, 2 components", in{16, []ecs.ComponentType{componentBenchmark1, componentBenchmark2}}},
-		{"64 entities, 2 components", in{64, []ecs.ComponentType{componentBenchmark1, componentBenchmark2}}},
-		{"256 entities, 2 components", in{256, []ecs.ComponentType{componentBenchmark1, componentBenchmark2}}},
-		{"1024 entities, 2 components", in{1024, []ecs.ComponentType{componentBenchmark1, componentBenchmark2}}},
-		{"4096 entities, 2 components", in{4096, []ecs.ComponentType{componentBenchmark1, componentBenchmark2}}},
+		{"16 entities, 2 components", in{16, []ecs.Component{&benchmarkComponent1{}, &benchmarkComponent2{}}}},
+		{"64 entities, 2 components", in{64, []ecs.Component{&benchmarkComponent1{}, &benchmarkComponent2{}}}},
+		{"256 entities, 2 components", in{256, []ecs.Component{&benchmarkComponent1{}, &benchmarkComponent2{}}}},
+		{"1024 entities, 2 components", in{1024, []ecs.Component{&benchmarkComponent1{}, &benchmarkComponent2{}}}},
+		{"4096 entities, 2 components", in{4096, []ecs.Component{&benchmarkComponent1{}, &benchmarkComponent2{}}}},
 
-		{"16 entities, 3 components", in{16, []ecs.ComponentType{componentBenchmark1, componentBenchmark2, componentBenchmark3}}},
-		{"64 entities, 3 components", in{64, []ecs.ComponentType{componentBenchmark1, componentBenchmark2, componentBenchmark3}}},
-		{"256 entities, 3 components", in{256, []ecs.ComponentType{componentBenchmark1, componentBenchmark2, componentBenchmark3}}},
-		{"1024 entities, 3 components", in{1024, []ecs.ComponentType{componentBenchmark1, componentBenchmark2, componentBenchmark3}}},
-		{"4096 entities, 3 components", in{4096, []ecs.ComponentType{componentBenchmark1, componentBenchmark2, componentBenchmark3}}},
+		{"16 entities, 3 components", in{16, []ecs.Component{&benchmarkComponent1{}, &benchmarkComponent2{}, &benchmarkComponent3{}}}},
+		{"64 entities, 3 components", in{64, []ecs.Component{&benchmarkComponent1{}, &benchmarkComponent2{}, &benchmarkComponent3{}}}},
+		{"256 entities, 3 components", in{256, []ecs.Component{&benchmarkComponent1{}, &benchmarkComponent2{}, &benchmarkComponent3{}}}},
+		{"1024 entities, 3 components", in{1024, []ecs.Component{&benchmarkComponent1{}, &benchmarkComponent2{}, &benchmarkComponent3{}}}},
+		{"4096 entities, 3 components", in{4096, []ecs.Component{&benchmarkComponent1{}, &benchmarkComponent2{}, &benchmarkComponent3{}}}},
 	}
 
 	for _, c := range cases {
@@ -144,8 +148,8 @@ func BenchmarkGetComponent(b *testing.B) {
 					entity, _ := ecsCoordinator.CreateEntity()
 					entities = append(entities, entity)
 
-					for _, componentType := range c.in.componentTypes {
-						ecsCoordinator.AddComponent(entity, &benchmarkComponent{componentType: componentType})
+					for _, component := range c.in.components {
+						ecsCoordinator.AddComponent(entity, component)
 					}
 				}
 				b.StartTimer()
@@ -153,7 +157,8 @@ func BenchmarkGetComponent(b *testing.B) {
 				for j := 0; j < c.in.entities; j++ {
 					entity := entities[j]
 
-					for _, componentType := range c.in.componentTypes {
+					for _, component := range c.in.components {
+						componentType := component.Type()
 						ecsCoordinator.GetComponent(entity, componentType)
 					}
 
@@ -190,14 +195,16 @@ func BenchmarkRemoveAddComponent(b *testing.B) {
 				for j := 0; j < c.in; j++ {
 					entity, _ := ecsCoordinator.CreateEntity()
 					entities = append(entities, entity)
-					ecsCoordinator.AddComponent(entity, &benchmarkComponent{componentType: componentBenchmark1})
+					ecsCoordinator.AddComponent(entity, &benchmarkComponent1{})
 				}
 				b.StartTimer()
 
 				for j := 0; j < c.in; j++ {
+					benchmarkComponent1 := &benchmarkComponent1{}
+					benchmarkComponent1Type := benchmarkComponent1.Type()
 					entity := entities[j]
-					ecsCoordinator.RemoveComponent(entity, componentBenchmark1)
-					ecsCoordinator.AddComponent(entity, &benchmarkComponent{componentType: componentBenchmark2})
+					ecsCoordinator.RemoveComponent(entity, benchmarkComponent1Type)
+					ecsCoordinator.AddComponent(entity, benchmarkComponent1)
 
 					r = entity
 				}

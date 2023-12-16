@@ -9,7 +9,7 @@ type componentManager struct {
 }
 
 type entityComponents struct {
-	components     []component
+	components     []Component
 	componentsMask ComponentsMask // Bitmask of all added components
 }
 
@@ -24,7 +24,7 @@ func NewComponentManager(maxEntities int) *componentManager {
 	}
 }
 
-func (cm *componentManager) AddComponent(entity Entity, component component) error {
+func (cm *componentManager) AddComponent(entity Entity, component Component) error {
 	ec := cm.entityComponents[entity]
 
 	if len(ec.components) == maxComponents {
@@ -54,7 +54,7 @@ func (cm *componentManager) EntityComponentsCount() int {
 	return len(cm.entityComponents)
 }
 
-func (cm *componentManager) GetComponent(entity Entity, componentType ComponentType) component {
+func (cm *componentManager) GetComponent(entity Entity, componentType ComponentType) Component {
 	ec := cm.entityComponents[entity]
 
 	for _, component := range ec.components {
