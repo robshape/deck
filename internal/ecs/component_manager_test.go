@@ -41,7 +41,7 @@ func TestAddComponent(t *testing.T) {
 	cases := []struct {
 		name string
 		in   []ecs.Component
-		want ecs.ComponentsMask
+		want ecs.Signature
 	}{
 		{"should add one component with mask", []ecs.Component{&testComponent1{}}, 1},
 		{"should add many components with mask", []ecs.Component{&testComponent1{}, &testComponent2{}, &testComponent3{}}, 1 | 2 | 4},
@@ -58,14 +58,14 @@ func TestAddComponent(t *testing.T) {
 				componentManager.AddComponent(entity, component)
 			}
 			componentsCount := componentManager.ComponentsCount(entity)
-			componentsMask := componentManager.ComponentsMask(entity)
+			signature := componentManager.Signature(entity)
 			wantCount := int(math.Round(math.Sqrt(float64(c.want)))) // Count bits set in mask
 
 			if componentsCount != wantCount {
 				t.Errorf("got %d, want %d", componentsCount, wantCount)
 			}
-			if componentsMask != c.want {
-				t.Errorf("got %d, want %d", componentsMask, c.want)
+			if signature != c.want {
+				t.Errorf("got %d, want %d", signature, c.want)
 			}
 		})
 	}
@@ -90,25 +90,25 @@ func TestDestroyEntityComponents(t *testing.T) {
 				componentManager.AddComponent(entity, component)
 			}
 			componentsCount := componentManager.ComponentsCount(entity)
-			componentsMask := componentManager.ComponentsMask(entity)
 			inCount := len(c.in)
+			signature := componentManager.Signature(entity)
 
 			if componentsCount != inCount {
 				t.Errorf("got %d, want %d", componentsCount, inCount)
 			}
-			if componentsMask == 0 {
-				t.Errorf("got %d, want non-zero", componentsMask)
+			if signature == 0 {
+				t.Errorf("got %d, want non-zero", signature)
 			}
 
 			componentManager.DestroyEntityComponents(entity)
 			componentsCount = componentManager.ComponentsCount(entity)
-			componentsMask = componentManager.ComponentsMask(entity)
+			signature = componentManager.Signature(entity)
 
 			if componentsCount != 0 {
 				t.Errorf("got %d, want 0", componentsCount)
 			}
-			if componentsMask != 0 {
-				t.Errorf("got %d, want 0", componentsMask)
+			if signature != 0 {
+				t.Errorf("got %d, want 0", signature)
 			}
 		})
 	}
@@ -181,13 +181,13 @@ func TestRemoveComponent(t *testing.T) {
 				componentManager.RemoveComponent(entity, componentType)
 			}
 			componentsCount = componentManager.ComponentsCount(entity)
-			componentsMask := componentManager.ComponentsMask(entity)
+			signature := componentManager.Signature(entity)
 
 			if componentsCount != 0 {
 				t.Errorf("got %d, want 0", componentsCount)
 			}
-			if componentsMask != 0 {
-				t.Errorf("got %d, want 0", componentsMask)
+			if signature != 0 {
+				t.Errorf("got %d, want 0", signature)
 			}
 		})
 	}

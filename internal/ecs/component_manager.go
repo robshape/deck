@@ -9,8 +9,8 @@ type componentManager struct {
 }
 
 type entityComponents struct {
-	components     []Component
-	componentsMask ComponentsMask // Bitmask of all added components
+	components []Component
+	signature  Signature
 }
 
 func NewComponentManager(maxEntities int) *componentManager {
@@ -29,21 +29,17 @@ func (cm *componentManager) AddComponent(entity Entity, component Component) err
 
 	if len(ec.components) == maxComponents {
 		return errors.New("maximum number of components already added")
-	} else if (ec.componentsMask & component.Type()) == component.Type() {
+	} else if (ec.signature & component.Type()) == component.Type() {
 		return errors.New("component already added")
 	}
 
 	ec.components = append(ec.components, component)
-	ec.componentsMask |= component.Type() // Add component to bitmask
+	ec.signature |= component.Type() // Add component to signature
 	return nil
 }
 
 func (cm *componentManager) ComponentsCount(entity Entity) int {
 	return len(cm.entityComponents[entity].components)
-}
-
-func (cm *componentManager) ComponentsMask(entity Entity) ComponentsMask {
-	return cm.entityComponents[entity].componentsMask
 }
 
 func (cm *componentManager) DestroyEntityComponents(entity Entity) {
@@ -75,9 +71,13 @@ func (cm *componentManager) RemoveComponent(entity Entity, componentType Compone
 			ec.components[len(ec.components)-1] = nil
 			ec.components = ec.components[:len(ec.components)-1]
 
-			ec.componentsMask ^= componentType // Remove component from bitmask
+			ec.signature ^= componentType // Remove component from signature
 
 			break
 		}
 	}
+}
+
+func (cm *componentManager) Signature(entity Entity) Signature {
+	return cm.entityComponents[entity].signature
 }
