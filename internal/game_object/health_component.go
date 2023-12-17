@@ -4,9 +4,15 @@ import (
 	"github.com/robshape/deck/internal/ecs"
 )
 
+type reward struct {
+	ability   func()
+	force     uint
+	resources uint
+}
+
 type healthComponent struct {
-	hitPoints int
-	reward    func()
+	hitPoints uint
+	reward    reward
 }
 
 func (hc *healthComponent) Type() ecs.ComponentType {
