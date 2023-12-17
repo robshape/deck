@@ -190,6 +190,7 @@ func BenchmarkRemoveAddComponent(b *testing.B) {
 			b.ResetTimer()
 			for i := 0; i < b.N; i++ {
 				b.StopTimer()
+				benchmarkComponent1Type := (&benchmarkComponent1{}).Type()
 				ecsCoordinator := ecs.NewECSManager(c.in)
 				entities := []ecs.Entity{}
 				for j := 0; j < c.in; j++ {
@@ -200,11 +201,9 @@ func BenchmarkRemoveAddComponent(b *testing.B) {
 				b.StartTimer()
 
 				for j := 0; j < c.in; j++ {
-					benchmarkComponent1 := &benchmarkComponent1{}
-					benchmarkComponent1Type := benchmarkComponent1.Type()
 					entity := entities[j]
 					ecsCoordinator.RemoveComponent(entity, benchmarkComponent1Type)
-					ecsCoordinator.AddComponent(entity, benchmarkComponent1)
+					ecsCoordinator.AddComponent(entity, &benchmarkComponent2{})
 
 					r = entity
 				}

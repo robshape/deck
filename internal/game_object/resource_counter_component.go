@@ -7,5 +7,5 @@ import (
 type ResourceCounterComponent struct{}
 
 func (rcc *ResourceCounterComponent) Type() ecs.ComponentType {
-	return forceMarkerComponentType
+	return resourceCounterComponentType
 }
