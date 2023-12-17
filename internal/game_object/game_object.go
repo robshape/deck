@@ -6,24 +6,24 @@ import (
 
 const (
 	// Automatically increment by the power of two
-	damageCounterComponentType ecs.ComponentType = 1 << iota
-	forceMarkerComponentType
-	resourceCounterComponentType
+	cardComponentType ecs.ComponentType = 1 << iota
+	markerComponentType
+	propertiesComponentType
 )
 
 func CreateGameObjects(ecsManager *ecs.EcsManager) {
 	const damageCountersCount = 50
 	for i := 0; i < damageCountersCount; i++ {
 		damageCounterEntity, _ := ecsManager.CreateEntity()
-		ecsManager.AddComponent(damageCounterEntity, &DamageCounterComponent{})
+		ecsManager.AddComponent(damageCounterEntity, &MarkerComponent{MarkerTypeDamageCounter})
 	}
 
 	forceMarkerEntity, _ := ecsManager.CreateEntity()
-	ecsManager.AddComponent(forceMarkerEntity, &ForceMarkerComponent{})
+	ecsManager.AddComponent(forceMarkerEntity, &MarkerComponent{MarkerTypeForceMarker})
 
 	const resourceCountersCount = 20
 	for i := 0; i < resourceCountersCount; i++ {
 		resourceCounterEntity, _ := ecsManager.CreateEntity()
-		ecsManager.AddComponent(resourceCounterEntity, &ResourceCounterComponent{})
+		ecsManager.AddComponent(resourceCounterEntity, &MarkerComponent{MarkerTypeResourceCounter})
 	}
 }
