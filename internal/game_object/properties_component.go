@@ -4,13 +4,14 @@ import (
 	"github.com/robshape/deck/internal/ecs"
 )
 
-type PropertiesComponent struct {
+type propertiesComponent struct {
+	ability   func()
 	attack    uint
 	cost      uint
 	force     uint
 	resources uint
 }
 
-func (pc *PropertiesComponent) Type() ecs.ComponentType {
+func (pc *propertiesComponent) Type() ecs.ComponentType {
 	return propertiesComponentType
 }
