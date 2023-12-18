@@ -10,11 +10,11 @@ type Reward struct {
 	Resources uint
 }
 
-type healthComponent struct {
+type HealthComponent struct {
 	HitPoints uint
 	Reward    Reward
 }
 
-func (hc *healthComponent) Type() ecs.ComponentType {
+func (hc *HealthComponent) Type() ecs.ComponentType {
 	return healthComponentType
 }
