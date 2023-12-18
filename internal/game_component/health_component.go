@@ -1,18 +1,18 @@
-package game_object
+package game_component
 
 import (
 	"github.com/robshape/deck/internal/ecs"
 )
 
-type reward struct {
-	ability   func()
-	force     uint
-	resources uint
+type Reward struct {
+	Ability   func()
+	Force     uint
+	Resources uint
 }
 
 type healthComponent struct {
-	hitPoints uint
-	reward    reward
+	HitPoints uint
+	Reward    Reward
 }
 
 func (hc *healthComponent) Type() ecs.ComponentType {
