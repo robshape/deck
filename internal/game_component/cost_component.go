@@ -1,7 +1,7 @@
 package game_component
 
 import (
-	"github.com/robshape/deck/internal/ecs"
+	"github.com/robshape/deck/pkg/ecs"
 )
 
 type CostComponent struct {

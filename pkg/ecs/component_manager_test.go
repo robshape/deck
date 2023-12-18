@@ -4,7 +4,7 @@ import (
 	"math"
 	"testing"
 
-	"github.com/robshape/deck/internal/ecs"
+	"github.com/robshape/deck/pkg/ecs"
 )
 
 type testComponent1 struct{}

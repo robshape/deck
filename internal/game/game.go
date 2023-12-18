@@ -1,8 +1,8 @@
 package game
 
 import (
-	"github.com/robshape/deck/internal/ecs"
 	"github.com/robshape/deck/internal/game_object"
+	"github.com/robshape/deck/pkg/ecs"
 )
 
 func Start() {

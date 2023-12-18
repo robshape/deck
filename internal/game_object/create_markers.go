@@ -1,8 +1,8 @@
 package game_object
 
 import (
-	"github.com/robshape/deck/internal/ecs"
 	gc "github.com/robshape/deck/internal/game_component"
+	"github.com/robshape/deck/pkg/ecs"
 )
 
 func createMarkers(ecsManager *ecs.EcsManager) {

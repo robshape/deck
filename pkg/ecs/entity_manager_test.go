@@ -3,7 +3,7 @@ package ecs_test
 import (
 	"testing"
 
-	"github.com/robshape/deck/internal/ecs"
+	"github.com/robshape/deck/pkg/ecs"
 )
 
 func TestNewEntityManager(t *testing.T) {
