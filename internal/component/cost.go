@@ -1,4 +1,4 @@
-package game_component
+package component
 
 import (
 	"github.com/robshape/deck/pkg/ecs"
