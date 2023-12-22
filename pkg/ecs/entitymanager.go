@@ -22,7 +22,7 @@ func NewEntityManager(maxEntities int) *entityManager {
 
 func (em *entityManager) CreateEntity() (Entity, error) {
 	if (len(em.destroyedEntities)) == 0 {
-		return 0, errors.New("maximum number of entities already created")
+		return 0, errors.New("CreateEntity: maximum number of entities already created")
 	}
 
 	entity := em.destroyedEntities[0]

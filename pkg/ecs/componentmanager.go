@@ -28,9 +28,9 @@ func (cm *componentManager) AddComponent(entity Entity, component Component) err
 	ec := cm.entityComponents[entity]
 
 	if len(ec.components) == maxComponents {
-		return errors.New("maximum number of components already added")
+		return errors.New("AddComponent: maximum number of components already added")
 	} else if (ec.signature & component.Type()) == component.Type() {
-		return errors.New("component already added")
+		return errors.New("AddComponent: component already added")
 	}
 
 	ec.components = append(ec.components, component)

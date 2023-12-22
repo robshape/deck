@@ -52,7 +52,10 @@ func TestAddComponent(t *testing.T) {
 		t.Run(c.name, func(t *testing.T) {
 			componentManager := ecs.NewComponentManager(ecs.MaxEntities)
 			entityManager := ecs.NewEntityManager(ecs.MaxEntities)
-			entity, _ := entityManager.CreateEntity()
+			entity, err := entityManager.CreateEntity()
+			if err != nil {
+				t.Error(err)
+			}
 
 			for _, component := range c.in {
 				componentManager.AddComponent(entity, component)
@@ -84,10 +87,15 @@ func TestDestroyEntityComponents(t *testing.T) {
 		t.Run(c.name, func(t *testing.T) {
 			componentManager := ecs.NewComponentManager(ecs.MaxEntities)
 			entityManager := ecs.NewEntityManager(ecs.MaxEntities)
-			entity, _ := entityManager.CreateEntity()
+			entity, err := entityManager.CreateEntity()
+			if err != nil {
+				t.Error(err)
+			}
 
 			for _, component := range c.in {
-				componentManager.AddComponent(entity, component)
+				if err := componentManager.AddComponent(entity, component); err != nil {
+					t.Error(err)
+				}
 			}
 			componentsCount := componentManager.ComponentsCount(entity)
 			inCount := len(c.in)
@@ -127,10 +135,15 @@ func TestGetComponent(t *testing.T) {
 		t.Run(c.name, func(t *testing.T) {
 			componentManager := ecs.NewComponentManager(ecs.MaxEntities)
 			entityManager := ecs.NewEntityManager(ecs.MaxEntities)
-			entity, _ := entityManager.CreateEntity()
+			entity, err := entityManager.CreateEntity()
+			if err != nil {
+				t.Error(err)
+			}
 
 			for _, component := range c.in {
-				componentManager.AddComponent(entity, component)
+				if err := componentManager.AddComponent(entity, component); err != nil {
+					t.Error(err)
+				}
 			}
 			componentsCount := componentManager.ComponentsCount(entity)
 			inCount := len(c.in)
@@ -164,10 +177,15 @@ func TestRemoveComponent(t *testing.T) {
 		t.Run(c.name, func(t *testing.T) {
 			componentManager := ecs.NewComponentManager(ecs.MaxEntities)
 			entityManager := ecs.NewEntityManager(ecs.MaxEntities)
-			entity, _ := entityManager.CreateEntity()
+			entity, err := entityManager.CreateEntity()
+			if err != nil {
+				t.Error(err)
+			}
 
 			for _, component := range c.in {
-				componentManager.AddComponent(entity, component)
+				if err := componentManager.AddComponent(entity, component); err != nil {
+					t.Error(err)
+				}
 			}
 			componentsCount := componentManager.ComponentsCount(entity)
 			inCount := len(c.in)

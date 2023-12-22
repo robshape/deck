@@ -1,5 +1,3 @@
-// Reference: https://github.com/abeimler/ecs_benchmark#additional-benchmarks
-
 package ecs_test
 
 import (
