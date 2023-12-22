@@ -1,7 +1,7 @@
 package component
 
 type AttackComponent struct {
-	Damage uint
+	Damage int
 }
 
 func (ac *AttackComponent) Type() uint64 {

@@ -1,7 +1,7 @@
 package component
 
 type CostComponent struct {
-	Resources uint
+	Resources int
 }
 
 func (cc *CostComponent) Type() uint64 {

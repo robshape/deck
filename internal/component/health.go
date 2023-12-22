@@ -2,12 +2,12 @@ package component
 
 type Reward struct {
 	Ability   func()
-	Force     uint
-	Resources uint
+	Force     int
+	Resources int
 }
 
 type HealthComponent struct {
-	HitPoints uint
+	HitPoints int
 	Reward    Reward
 }
 

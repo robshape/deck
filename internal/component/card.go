@@ -1,6 +1,6 @@
 package component
 
-type cardType uint
+type cardType int
 
 const (
 	CardTypeBase cardType = iota
@@ -8,7 +8,7 @@ const (
 	CardTypeUnit
 )
 
-type designation uint
+type designation int
 
 const (
 	DesignationEmpireStarter designation = iota

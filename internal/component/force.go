@@ -1,7 +1,7 @@
 package component
 
 type ForceComponent struct {
-	Force uint
+	Force int
 }
 
 func (fc *ForceComponent) Type() uint64 {

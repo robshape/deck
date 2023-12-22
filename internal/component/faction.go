@@ -1,6 +1,6 @@
 package component
 
-type faction uint
+type faction int
 
 const (
 	FactionEmpire faction = iota

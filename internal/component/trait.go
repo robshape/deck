@@ -1,6 +1,6 @@
 package component
 
-type trait uint
+type trait int
 
 const (
 	TraitBountyHunter trait = iota
