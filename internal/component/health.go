@@ -1,9 +1,5 @@
 package component
 
-import (
-	"github.com/robshape/deck/pkg/ecs"
-)
-
 type Reward struct {
 	Ability   func()
 	Force     uint
@@ -15,6 +11,6 @@ type HealthComponent struct {
 	Reward    Reward
 }
 
-func (hc *HealthComponent) Type() ecs.ComponentType {
+func (hc *HealthComponent) Type() uint64 {
 	return healthComponentType
 }

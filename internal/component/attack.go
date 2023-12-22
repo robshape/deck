@@ -1,13 +1,9 @@
 package component
 
-import (
-	"github.com/robshape/deck/pkg/ecs"
-)
-
 type AttackComponent struct {
 	Damage uint
 }
 
-func (ac *AttackComponent) Type() ecs.ComponentType {
+func (ac *AttackComponent) Type() uint64 {
 	return attackComponentType
 }

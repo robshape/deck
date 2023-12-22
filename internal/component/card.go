@@ -1,9 +1,5 @@
 package component
 
-import (
-	"github.com/robshape/deck/pkg/ecs"
-)
-
 type cardType uint
 
 const (
@@ -29,6 +25,6 @@ type CardComponent struct {
 	Unique      bool
 }
 
-func (cc *CardComponent) Type() ecs.ComponentType {
+func (cc *CardComponent) Type() uint64 {
 	return cardComponentType
 }

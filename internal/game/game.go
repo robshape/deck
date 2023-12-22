@@ -5,7 +5,7 @@ import (
 )
 
 func Start() {
-	ecsManager := ecs.NewECSManager(ecs.MaxEntities)
+	ecsManager := ecs.NewEcsManager(ecs.MaxEntities)
 
 	createGameObjects(ecsManager)
 

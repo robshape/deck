@@ -21,12 +21,12 @@ func TestNewEntityManager(t *testing.T) {
 func TestCreateEntity(t *testing.T) {
 	cases := []struct {
 		name string
-		in   int      // Number of entities to create
-		want []uint32 // IDs of the created entities
+		in   int
+		want []ecs.Entity
 	}{
 		{"should start with no entities", 0, nil},
-		{"should create one entity with id", 1, []uint32{0}},
-		{"should create many entities with ids", 3, []uint32{0, 1, 2}},
+		{"should create one entity with id", 1, []ecs.Entity{0}},
+		{"should create many entities with ids", 3, []ecs.Entity{0, 1, 2}},
 	}
 
 	for _, c := range cases {
@@ -55,7 +55,7 @@ func TestCreateEntity(t *testing.T) {
 func TestDestroyEntity(t *testing.T) {
 	cases := []struct {
 		name string
-		in   int // Number of entities to create and destroy
+		in   int
 	}{
 		{"should destroy one entity", 1},
 		{"should destroy many entities", 3},

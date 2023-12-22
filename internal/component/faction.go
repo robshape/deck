@@ -1,9 +1,5 @@
 package component
 
-import (
-	"github.com/robshape/deck/pkg/ecs"
-)
-
 type faction uint
 
 const (
@@ -16,6 +12,6 @@ type FactionComponent struct {
 	Faction faction
 }
 
-func (fc *FactionComponent) Type() ecs.ComponentType {
+func (fc *FactionComponent) Type() uint64 {
 	return factionComponentType
 }

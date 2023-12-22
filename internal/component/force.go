@@ -1,13 +1,9 @@
 package component
 
-import (
-	"github.com/robshape/deck/pkg/ecs"
-)
-
 type ForceComponent struct {
 	Force uint
 }
 
-func (fc *ForceComponent) Type() ecs.ComponentType {
+func (fc *ForceComponent) Type() uint64 {
 	return forceComponentType
 }

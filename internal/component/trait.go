@@ -1,9 +1,5 @@
 package component
 
-import (
-	"github.com/robshape/deck/pkg/ecs"
-)
-
 type trait uint
 
 const (
@@ -18,6 +14,6 @@ type TraitComponent struct {
 	Traits []trait
 }
 
-func (tc *TraitComponent) Type() ecs.ComponentType {
+func (tc *TraitComponent) Type() uint64 {
 	return traitComponentType
 }

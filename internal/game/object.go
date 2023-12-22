@@ -5,11 +5,11 @@ import (
 	"github.com/robshape/deck/pkg/ecs"
 )
 
-func createGameObjects(ecsManager *ecs.EcsManager) {
+func createGameObjects(ecsManager ecs.EcsManager) {
 	createMarkers(ecsManager)
 }
 
-func createMarkers(ecsManager *ecs.EcsManager) {
+func createMarkers(ecsManager ecs.EcsManager) {
 	const damageCountersCount = 50
 	for i := 0; i < damageCountersCount; i++ {
 		damageCounterEntity, _ := ecsManager.CreateEntity()
