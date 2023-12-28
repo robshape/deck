@@ -4,7 +4,9 @@ import (
 	"time"
 )
 
-func loop(tickRate time.Duration, onTick func(dt float64)) {
+type onTickFn func(dt float64)
+
+func loop(tickRate time.Duration, onTick onTickFn) {
 	tick := time.Tick(time.Second / tickRate)
 	start := time.Now().UnixNano()
 
