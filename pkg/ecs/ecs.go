@@ -33,7 +33,7 @@ func (em *ecsManager) CreateEntity() (Entity, error) {
 }
 
 func (em *ecsManager) DestroyEntity(entity Entity) {
-	em.componentManager.DestroyEntityComponents(entity)
+	em.componentManager.DestroyComponents(entity)
 	em.entityManager.DestroyEntity(entity)
 }
 

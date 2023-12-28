@@ -42,11 +42,11 @@ func (cm *componentManager) ComponentsCount(entity Entity) int {
 	return len(cm.entityComponents[entity].components)
 }
 
-func (cm *componentManager) DestroyEntityComponents(entity Entity) {
+func (cm *componentManager) DestroyComponents(entity Entity) {
 	cm.entityComponents[entity] = &entityComponents{}
 }
 
-func (cm *componentManager) EntityComponentsCount() int {
+func (cm *componentManager) EntitiesCount() int {
 	return len(cm.entityComponents)
 }
 

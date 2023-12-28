@@ -27,13 +27,13 @@ func (tc3 *testComponent3) Type() ecs.ComponentType {
 
 func TestNewComponentManager(t *testing.T) {
 	componentManager := ecs.NewComponentManager(ecs.MaxEntities)
-	entityComponentsCount := componentManager.EntityComponentsCount()
+	entitiesCount := componentManager.EntitiesCount()
 
 	if componentManager == nil {
 		t.Error("got nil, want non-nil")
 	}
-	if entityComponentsCount != ecs.MaxEntities {
-		t.Errorf("got %d, want %d", entityComponentsCount, ecs.MaxEntities)
+	if entitiesCount != ecs.MaxEntities {
+		t.Errorf("got %d, want %d", entitiesCount, ecs.MaxEntities)
 	}
 }
 
@@ -108,7 +108,7 @@ func TestDestroyEntityComponents(t *testing.T) {
 				t.Errorf("got %d, want non-zero", signature)
 			}
 
-			componentManager.DestroyEntityComponents(entity)
+			componentManager.DestroyComponents(entity)
 			componentsCount = componentManager.ComponentsCount(entity)
 			signature = componentManager.Signature(entity)
 
