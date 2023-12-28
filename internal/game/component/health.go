@@ -1,5 +1,9 @@
 package component
 
+import (
+	"github.com/robshape/deck/internal/global"
+)
+
 type Reward struct {
 	Ability   func()
 	Force     int
@@ -12,5 +16,5 @@ type HealthComponent struct {
 }
 
 func (hc *HealthComponent) Type() uint64 {
-	return healthComponentType
+	return global.HealthComponentType
 }

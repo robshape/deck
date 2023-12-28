@@ -1,5 +1,9 @@
 package component
 
+import (
+	"github.com/robshape/deck/internal/global"
+)
+
 type faction int
 
 const (
@@ -13,5 +17,5 @@ type FactionComponent struct {
 }
 
 func (fc *FactionComponent) Type() uint64 {
-	return factionComponentType
+	return global.FactionComponentType
 }

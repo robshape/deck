@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/robshape/deck/internal/component"
+	"github.com/robshape/deck/internal/game/component"
 	"github.com/robshape/deck/pkg/ecs"
 )
 
@@ -19,9 +19,11 @@ func createMarkers(ecsManager ecs.EcsManager) {
 		if err != nil {
 			log.Fatal(fmt.Errorf("createMarkers: failed creating damage counter: %w", err))
 		}
-		if err := ecsManager.AddComponent(damageCounterEntity, &component.AttackComponent{
+
+		attackComponent := &component.AttackComponent{
 			Damage: 1,
-		}); err != nil {
+		}
+		if err := ecsManager.AddComponent(damageCounterEntity, attackComponent); err != nil {
 			log.Fatal(fmt.Errorf("createMarkers: failed adding attack to damage counter: %w", err))
 		}
 	}
@@ -30,9 +32,11 @@ func createMarkers(ecsManager ecs.EcsManager) {
 	if err != nil {
 		log.Fatal(fmt.Errorf("createMarkers: failed creating force marker: %w", err))
 	}
-	if err := ecsManager.AddComponent(forceMarkerEntity, &component.ForceComponent{
+
+	forceComponent := &component.ForceComponent{
 		Force: 1,
-	}); err != nil {
+	}
+	if err := ecsManager.AddComponent(forceMarkerEntity, forceComponent); err != nil {
 		log.Fatal(fmt.Errorf("createMarkers: failed adding force to force marker: %w", err))
 	}
 
@@ -42,9 +46,11 @@ func createMarkers(ecsManager ecs.EcsManager) {
 		if err != nil {
 			log.Fatal(fmt.Errorf("createMarkers: failed creating resource counter: %w", err))
 		}
-		if err := ecsManager.AddComponent(resourceCounterEntity, &component.ResourcesComponent{
+
+		resourcesComponent := &component.ResourcesComponent{
 			Resources: 1,
-		}); err != nil {
+		}
+		if err := ecsManager.AddComponent(resourceCounterEntity, resourcesComponent); err != nil {
 			log.Fatal(fmt.Errorf("createMarkers: failed adding resources to resource counter: %w", err))
 		}
 	}

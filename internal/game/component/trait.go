@@ -1,5 +1,9 @@
 package component
 
+import (
+	"github.com/robshape/deck/internal/global"
+)
+
 type trait int
 
 const (
@@ -15,5 +19,5 @@ type TraitComponent struct {
 }
 
 func (tc *TraitComponent) Type() uint64 {
-	return traitComponentType
+	return global.TraitComponentType
 }

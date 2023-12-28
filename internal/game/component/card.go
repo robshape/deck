@@ -1,5 +1,9 @@
 package component
 
+import (
+	"github.com/robshape/deck/internal/global"
+)
+
 type cardType int
 
 const (
@@ -26,5 +30,5 @@ type CardComponent struct {
 }
 
 func (cc *CardComponent) Type() uint64 {
-	return cardComponentType
+	return global.CardComponentType
 }
