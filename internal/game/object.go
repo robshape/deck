@@ -5,6 +5,7 @@ import (
 	"log"
 
 	"github.com/robshape/deck/internal/game/component"
+	"github.com/robshape/deck/internal/render"
 	"github.com/robshape/deck/pkg/ecs"
 )
 
@@ -42,6 +43,11 @@ func createForceMarker(ecsManager ecs.EcsManager) {
 	}
 	if err := ecsManager.AddComponent(forceMarkerEntity, forceComponent); err != nil {
 		log.Fatal(fmt.Errorf("createForceMarker: failed adding force component to force marker entity: %w", err))
+	}
+
+	renderComponent := &render.RenderComponent{}
+	if err := ecsManager.AddComponent(forceMarkerEntity, renderComponent); err != nil {
+		log.Fatal(fmt.Errorf("createForceMarker: failed adding render component to force marker entity: %w", err))
 	}
 }
 

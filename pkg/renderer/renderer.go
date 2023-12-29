@@ -5,7 +5,7 @@ import (
 )
 
 type Renderer interface {
-	Render(a ...any)
+	Render(format string, a ...any)
 }
 
 type renderer struct{}
@@ -14,6 +14,6 @@ func NewRenderer() Renderer {
 	return &renderer{}
 }
 
-func (r *renderer) Render(a ...any) {
-	fmt.Println(a...)
+func (r *renderer) Render(format string, a ...any) {
+	fmt.Printf(format, a...)
 }

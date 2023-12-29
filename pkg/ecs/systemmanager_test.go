@@ -10,6 +10,14 @@ type testSystem struct {
 	dt float64
 }
 
+func (ts *testSystem) AddEntity(entity ecs.Entity) {}
+
+func (ts *testSystem) RemoveEntity(entity ecs.Entity) {}
+
+func (ts *testSystem) Signature() ecs.Signature {
+	return 0
+}
+
 func (ts *testSystem) Update(dt float64) {
 	ts.dt = dt
 }

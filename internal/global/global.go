@@ -9,6 +9,7 @@ const (
 	FactionComponentType
 	ForceComponentType
 	HealthComponentType
+	RenderComponentType
 	ResourcesComponentType
 	TraitComponentType
 )

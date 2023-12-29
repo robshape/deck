@@ -25,7 +25,14 @@ func NewEcsManager(maxEntities int) EcsManager {
 }
 
 func (em *ecsManager) AddComponent(entity Entity, component Component) error {
-	return em.componentManager.AddComponent(entity, component)
+	err := em.componentManager.AddComponent(entity, component)
+
+	if err == nil {
+		signature := em.componentManager.Signature(entity)
+		em.systemManager.AddEntity(entity, signature)
+	}
+
+	return err
 }
 
 func (em *ecsManager) CreateEntity() (Entity, error) {
@@ -46,6 +53,9 @@ func (em *ecsManager) RegisterSystem(system System) {
 }
 
 func (em *ecsManager) RemoveComponent(entity Entity, componentType ComponentType) {
+	signature := em.componentManager.Signature(entity)
+	em.systemManager.RemoveEntity(entity, signature)
+
 	em.componentManager.RemoveComponent(entity, componentType)
 }
 
