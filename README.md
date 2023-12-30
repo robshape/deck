@@ -1,6 +1,7 @@
 # Deck
 
-An experiment implementing a deckbuilding game in code. For fun.
+An experiment implementing a [deck-building game](https://en.wikipedia.org/wiki/Deck-building_game)
+in code. For fun.
 
 ## License
 
