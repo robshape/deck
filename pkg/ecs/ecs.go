@@ -29,7 +29,7 @@ func (em *ecsManager) AddComponent(entity Entity, component Component) error {
 
 	if err == nil {
 		signature := em.componentManager.Signature(entity)
-		em.systemManager.AddEntity(entity, signature)
+		em.systemManager.UpdateEntities(entity, signature)
 	}
 
 	return err
@@ -40,6 +40,7 @@ func (em *ecsManager) CreateEntity() (Entity, error) {
 }
 
 func (em *ecsManager) DestroyEntity(entity Entity) {
+	em.systemManager.RemoveEntity(entity)
 	em.componentManager.DestroyComponents(entity)
 	em.entityManager.DestroyEntity(entity)
 }
@@ -54,7 +55,7 @@ func (em *ecsManager) RegisterSystem(system System) {
 
 func (em *ecsManager) RemoveComponent(entity Entity, componentType ComponentType) {
 	signature := em.componentManager.Signature(entity)
-	em.systemManager.RemoveEntity(entity, signature)
+	em.systemManager.UpdateEntities(entity, signature)
 
 	em.componentManager.RemoveComponent(entity, componentType)
 }

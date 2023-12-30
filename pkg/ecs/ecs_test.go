@@ -6,24 +6,6 @@ import (
 	"github.com/robshape/deck/pkg/ecs"
 )
 
-type benchmarkComponent1 struct{}
-
-func (bc1 *benchmarkComponent1) Type() ecs.ComponentType {
-	return 1
-}
-
-type benchmarkComponent2 struct{}
-
-func (bc2 *benchmarkComponent2) Type() ecs.ComponentType {
-	return 2
-}
-
-type benchmarkComponent3 struct{}
-
-func (bc3 *benchmarkComponent3) Type() ecs.ComponentType {
-	return 4
-}
-
 var result ecs.Entity
 
 func BenchmarkCreateEntities(b *testing.B) {
@@ -210,4 +192,26 @@ func BenchmarkRemoveAddComponent(b *testing.B) {
 	}
 
 	result = r
+}
+
+////////////////////////
+// DATA, MOCKS, STUBS //
+////////////////////////
+
+type benchmarkComponent1 struct{}
+
+func (bc1 *benchmarkComponent1) Type() ecs.ComponentType {
+	return 1
+}
+
+type benchmarkComponent2 struct{}
+
+func (bc2 *benchmarkComponent2) Type() ecs.ComponentType {
+	return 2
+}
+
+type benchmarkComponent3 struct{}
+
+func (bc3 *benchmarkComponent3) Type() ecs.ComponentType {
+	return 4
 }

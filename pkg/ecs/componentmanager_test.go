@@ -7,24 +7,6 @@ import (
 	"github.com/robshape/deck/pkg/ecs"
 )
 
-type testComponent1 struct{}
-
-func (tc1 *testComponent1) Type() ecs.ComponentType {
-	return 1
-}
-
-type testComponent2 struct{}
-
-func (tc2 *testComponent2) Type() ecs.ComponentType {
-	return 2
-}
-
-type testComponent3 struct{}
-
-func (tc3 *testComponent3) Type() ecs.ComponentType {
-	return 4
-}
-
 func TestNewComponentManager(t *testing.T) {
 	componentManager := ecs.NewComponentManager(ecs.MaxEntities)
 	entitiesCount := componentManager.EntitiesCount()
@@ -209,4 +191,26 @@ func TestRemoveComponent(t *testing.T) {
 			}
 		})
 	}
+}
+
+////////////////////////
+// DATA, MOCKS, STUBS //
+////////////////////////
+
+type testComponent1 struct{}
+
+func (tc1 *testComponent1) Type() ecs.ComponentType {
+	return 1
+}
+
+type testComponent2 struct{}
+
+func (tc2 *testComponent2) Type() ecs.ComponentType {
+	return 2
+}
+
+type testComponent3 struct{}
+
+func (tc3 *testComponent3) Type() ecs.ComponentType {
+	return 4
 }

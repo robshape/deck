@@ -10,28 +10,28 @@ func NewSystemManager() *systemManager {
 	}
 }
 
-func (sm *systemManager) AddEntity(entity Entity, signature Signature) {
-	for _, system := range sm.systems {
-		if signature&system.Signature() == system.Signature() {
-			system.AddEntity(entity)
-		}
-	}
-}
-
 func (sm *systemManager) RegisterSystem(system System) {
 	sm.systems = append(sm.systems, system)
 }
 
-func (sm *systemManager) RemoveEntity(entity Entity, signature Signature) {
+func (sm *systemManager) RemoveEntity(entity Entity) {
 	for _, system := range sm.systems {
-		if signature&system.Signature() == system.Signature() {
-			system.RemoveEntity(entity)
-		}
+		system.RemoveEntity(entity)
 	}
 }
 
 func (sm *systemManager) SystemsCount() int {
 	return len(sm.systems)
+}
+
+func (sm *systemManager) UpdateEntities(entity Entity, signature Signature) {
+	for _, system := range sm.systems {
+		if signature&system.Signature() == system.Signature() {
+			system.AddEntity(entity)
+		} else {
+			system.RemoveEntity(entity)
+		}
+	}
 }
 
 func (sm *systemManager) UpdateSystems(dt float64) {
