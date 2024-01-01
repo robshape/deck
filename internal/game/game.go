@@ -7,7 +7,7 @@ import (
 )
 
 func Start() {
-	ecsManager := ecs.NewEcsManager(ecs.MaxEntities)
+	ecsManager := ecs.NewECS(ecs.MaxEntities)
 
 	renderer := renderer.NewRenderer()
 	renderSystem := render.NewRenderSystem(renderer)

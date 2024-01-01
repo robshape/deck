@@ -28,7 +28,7 @@ func BenchmarkCreateEntities(b *testing.B) {
 			for i := 0; i < b.N; i++ {
 				// Avoid observer effect (https://100go.co/89-benchmarks/)
 				b.StopTimer()
-				ecsManager := ecs.NewEcsManager(c.in)
+				ecsManager := ecs.NewECS(c.in)
 				b.StartTimer()
 
 				for j := 0; j < c.in; j++ {
@@ -64,7 +64,7 @@ func BenchmarkDestroyEntities(b *testing.B) {
 			b.ResetTimer()
 			for i := 0; i < b.N; i++ {
 				b.StopTimer()
-				ecsManager := ecs.NewEcsManager(c.in)
+				ecsManager := ecs.NewECS(c.in)
 				entities := []ecs.Entity{}
 				for j := 0; j < c.in; j++ {
 					entity, _ := ecsManager.CreateEntity()
@@ -122,7 +122,7 @@ func BenchmarkGetComponent(b *testing.B) {
 			b.ResetTimer()
 			for i := 0; i < b.N; i++ {
 				b.StopTimer()
-				ecsManager := ecs.NewEcsManager(c.in.entities)
+				ecsManager := ecs.NewECS(c.in.entities)
 				entities := []ecs.Entity{}
 				for j := 0; j < c.in.entities; j++ {
 					entity, _ := ecsManager.CreateEntity()
@@ -171,7 +171,7 @@ func BenchmarkRemoveAddComponent(b *testing.B) {
 			for i := 0; i < b.N; i++ {
 				b.StopTimer()
 				benchmarkComponent1Type := (&benchmarkComponent1{}).Type()
-				ecsManager := ecs.NewEcsManager(c.in)
+				ecsManager := ecs.NewECS(c.in)
 				entities := []ecs.Entity{}
 				for j := 0; j < c.in; j++ {
 					entity, _ := ecsManager.CreateEntity()
