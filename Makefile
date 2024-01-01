@@ -1,4 +1,6 @@
-.PHONY: audit benchmark build clean install run test
+.PHONY: all audit benchmark build clean install run test
+
+all: build test benchmark run
 
 audit:
 	go mod verify
