@@ -6,16 +6,15 @@ import (
 
 	"github.com/robshape/deck/internal/game/component"
 	"github.com/robshape/deck/internal/render"
-	"github.com/robshape/deck/pkg/ecs"
 )
 
-func createGameObjects(ecsManager ecs.EcsManager) {
+func createGameObjects(ecsManager ecsManager) {
 	createDamageCounters(ecsManager)
 	createForceMarker(ecsManager)
 	createResourceCounters(ecsManager)
 }
 
-func createDamageCounters(ecsManager ecs.EcsManager) {
+func createDamageCounters(ecsManager ecsManager) {
 	const damageCountersCount = 50
 	for i := 0; i < damageCountersCount; i++ {
 		damageCounterEntity, err := ecsManager.CreateEntity()
@@ -32,7 +31,7 @@ func createDamageCounters(ecsManager ecs.EcsManager) {
 	}
 }
 
-func createForceMarker(ecsManager ecs.EcsManager) {
+func createForceMarker(ecsManager ecsManager) {
 	forceMarkerEntity, err := ecsManager.CreateEntity()
 	if err != nil {
 		log.Fatal(fmt.Errorf("createForceMarker: failed creating force marker entity: %w", err))
@@ -51,7 +50,7 @@ func createForceMarker(ecsManager ecs.EcsManager) {
 	}
 }
 
-func createResourceCounters(ecsManager ecs.EcsManager) {
+func createResourceCounters(ecsManager ecsManager) {
 	const resourceCountersCount = 20
 	for i := 0; i < resourceCountersCount; i++ {
 		resourceCounterEntity, err := ecsManager.CreateEntity()

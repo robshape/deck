@@ -1,22 +1,12 @@
 package ecs
 
-type EcsManager interface {
-	AddComponent(entity Entity, component Component) error
-	CreateEntity() (Entity, error)
-	DestroyEntity(entity Entity)
-	GetComponent(entity Entity, componentType ComponentType) Component
-	RegisterSystem(system System)
-	RemoveComponent(entity Entity, componentType ComponentType)
-	UpdateSystems(dt float64)
-}
-
 type ecsManager struct {
 	componentManager *componentManager
 	entityManager    *entityManager
 	systemManager    *systemManager
 }
 
-func NewEcsManager(maxEntities int) EcsManager {
+func NewEcsManager(maxEntities int) *ecsManager {
 	return &ecsManager{
 		componentManager: NewComponentManager(maxEntities),
 		entityManager:    NewEntityManager(maxEntities),

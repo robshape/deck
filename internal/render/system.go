@@ -19,6 +19,10 @@ func (rs *renderSystem) AddEntity(entity uint32) {
 	rs.entities = append(rs.entities, entity)
 }
 
+func (rs *renderSystem) Entities() []uint32 {
+	return rs.entities
+}
+
 func (rs *renderSystem) RemoveEntity(entity uint32) {
 	for i, e := range rs.entities {
 		if e == entity {
