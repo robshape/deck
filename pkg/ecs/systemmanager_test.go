@@ -64,7 +64,7 @@ func TestUpdateEntities(t *testing.T) {
 			for _, system := range c.in {
 				systemManager.RegisterSystem(system)
 				testSystem := system.(*testSystem)
-				testSystemEntitiesCount := len(testSystem.entities)
+				testSystemEntitiesCount := len(testSystem.Entities())
 
 				if testSystemEntitiesCount != 0 {
 					t.Errorf("got %d, want 0", testSystemEntitiesCount)
@@ -75,7 +75,7 @@ func TestUpdateEntities(t *testing.T) {
 
 			for _, system := range c.in {
 				testSystem := system.(*testSystem)
-				testSystemEntitiesCount := len(testSystem.entities)
+				testSystemEntitiesCount := len(testSystem.Entities())
 
 				if testSystemEntitiesCount != 1 {
 					t.Errorf("got %d, want 1", testSystemEntitiesCount)
@@ -86,7 +86,7 @@ func TestUpdateEntities(t *testing.T) {
 
 			for _, system := range c.in {
 				testSystem := system.(*testSystem)
-				testSystemEntitiesCount := len(testSystem.entities)
+				testSystemEntitiesCount := len(testSystem.Entities())
 
 				if testSystemEntitiesCount != 0 {
 					t.Errorf("got %d, want 0", testSystemEntitiesCount)
@@ -148,6 +148,10 @@ type testSystem struct {
 
 func (ts *testSystem) AddEntity(entity ecs.Entity) {
 	ts.entities = append(ts.entities, entity)
+}
+
+func (ts *testSystem) Entities() []ecs.Entity {
+	return ts.entities
 }
 
 func (ts *testSystem) RemoveEntity(entity ecs.Entity) {

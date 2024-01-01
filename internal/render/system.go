@@ -2,15 +2,14 @@ package render
 
 import (
 	"github.com/robshape/deck/internal/global"
-	"github.com/robshape/deck/pkg/renderer"
 )
 
 type renderSystem struct {
 	entities []uint32
-	renderer renderer.Renderer
+	renderer renderer
 }
 
-func NewRenderSystem(renderer renderer.Renderer) *renderSystem {
+func NewRenderSystem(renderer renderer) *renderSystem {
 	return &renderSystem{
 		renderer: renderer,
 	}

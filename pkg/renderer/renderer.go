@@ -4,13 +4,9 @@ import (
 	"fmt"
 )
 
-type Renderer interface {
-	Render(format string, a ...any)
-}
-
 type renderer struct{}
 
-func NewRenderer() Renderer {
+func NewRenderer() *renderer {
 	return &renderer{}
 }
 
