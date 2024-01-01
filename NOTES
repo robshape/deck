@@ -1,30 +1,24 @@
 implement ecs
-  add managers
-    https://austinmorlan.com/posts/entity_component_system/
-    https://en.wikipedia.org/wiki/Entity_component_system
-    https://gamedev.stackexchange.com/a/31491/
-    https://github.com/SanderMertens/ecs-faq/
-    https://savas.ca/nomad/
-
   add ManagedEntity
-    link managers via Entity for intuitive interface
-
+    link managers via Entity/ManagedEntity for intuitive API
   create individual component managers for each component type
+    consider data structure!
+    https://medium.com/@savas/nomad-game-engine-part-4-4-soa-implementation-1c8e733dc0eb/
 
-implement game objects
-  add rule systems
+implement game
+  add OuterRimPilotDeck generator
+  add rule and behavior systems
     https://cdn.1j1ju.com/medias/27/e1/a6-star-realms-rulebook.pdf
     https://cdn.1j1ju.com/medias/62/18/30-star-wars-the-deckbuilding-game-rulebook.pdf
-
-  simplify ECS-components?
-    make abstract and reusable
     https://github.com/aframevr/aframe/blob/master/docs/introduction/entity-component-system.md#examples
+    https://news.ycombinator.com/item?id=38700552
 
-add CI workflow
-  golangci-lint
-
-add WASM boilerplate
+update boilerplate
+  add CI workflow
+  add WASM boilerplate
+  update README instructions
 
 research
   https://gameprogrammingpatterns.com/contents.html
-  https://medium.com/@tglaiel/how-to-make-your-game-run-at-60fps-24c61210fe75/
+  https://github.com/hunterloftis/notes/blob/master/2020-02-14-golang-roguelike.md
+  https://github.com/SanderMertens/ecs-faq/
